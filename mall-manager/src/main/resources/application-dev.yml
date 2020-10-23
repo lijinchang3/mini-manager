@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/mini-mall?useUnicode=true&characterEncoding=utf-8&useSSL=false
+
+
+file:
+  tempPath: E:\mini-mall\mall-manager\src\main\resources\static\file\temp
+  domain: http://localhost:8888
