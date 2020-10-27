@@ -1,8 +1,8 @@
 package me.liuhui.mall.manager.service.dto.ad.space;
 
-import me.liuhui.mall.common.base.dto.PageDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import me.liuhui.mall.common.base.dto.PageDto;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -15,15 +15,15 @@ public class ListAdSpaceDTO extends PageDto {
 
     private String no;
 
-    private String templateName;
+    private String template;
 
     private Integer number;
 
     private Integer type;
 
-    private Integer picWidth;
+    private Integer width;
 
-    private Integer picHeight;
+    private Integer height;
 
 
 }

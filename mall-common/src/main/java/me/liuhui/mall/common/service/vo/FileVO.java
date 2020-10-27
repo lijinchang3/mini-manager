@@ -12,7 +12,7 @@ import lombok.Data;
  * @author [清远]
  */
 @Data
-public class TempFileVO {
+public class FileVO {
     private String url;
     private String path;
 }

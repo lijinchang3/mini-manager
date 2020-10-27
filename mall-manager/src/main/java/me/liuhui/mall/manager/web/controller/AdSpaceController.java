@@ -1,12 +1,14 @@
 package me.liuhui.mall.manager.web.controller;
 
+
 import me.liuhui.mall.common.base.vo.ResultVO;
-import me.liuhui.mall.manager.web.annotation.PerCode;
 import me.liuhui.mall.manager.service.AdSpaceService;
 import me.liuhui.mall.manager.service.dto.ad.space.CreateAdSpaceDTO;
 import me.liuhui.mall.manager.service.dto.ad.space.ListAdSpaceDTO;
 import me.liuhui.mall.manager.service.dto.ad.space.ModifyAdSpaceDTO;
+import me.liuhui.mall.manager.service.vo.ad.space.AdSpaceVO;
 import me.liuhui.mall.manager.service.vo.ad.space.ListAdSpaceVO;
+import me.liuhui.mall.manager.web.annotation.PerCode;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +47,19 @@ public class AdSpaceController {
 	@DeleteMapping("delete")
 	public ResultVO<Boolean> delete(@RequestBody @Validated @NotNull @Size(min = 1) Set<Long> ids) {
 		return adSpaceService.delete(ids);
+	}
+
+
+	@PerCode("ad:mgt")
+	@GetMapping("detail")
+	public ResultVO<AdSpaceVO> detail(@Validated @NotNull Long id) {
+		return adSpaceService.detail(id);
+	}
+
+	@PerCode("ad:publish")
+	@GetMapping("publish")
+	public ResultVO<Boolean> publish(@Validated @NotNull Long id) {
+		return adSpaceService.publish(id);
 	}
 
 

@@ -2,23 +2,27 @@ package me.liuhui.mall.manager.service.dto.ad.space;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Data
 public class CreateAdSpaceDTO {
 
+    @NotBlank
 
-	private String name;
-
-	private String no;
-
-	private String templateName;
-
-	private Integer number;
-
-	private Integer type;
-
-	private Integer picWidth;
-
-	private Integer picHeight;
+    private String name;
+    @NotBlank
+    private String no;
+    @NotBlank
+    private String template;
+    @NotNull
+    private Integer number;
+    @NotNull
+    private Integer type;
+    @NotNull
+    private Integer width;
+    @NotNull
+    private Integer height;
 
 
 }

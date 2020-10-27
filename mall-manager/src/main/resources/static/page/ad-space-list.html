@@ -33,34 +33,23 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">模板名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="templateName" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">容量</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="number" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">类型</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="type" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">图片</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="picWidth" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">picHeight</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="picHeight" autocomplete="off" class="layui-input">
+                                <input autocomplete="off" class="layui-input" name="template" type="text">
                             </div>
                         </div>
 
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">类型</label>
+                            <div class="layui-input-inline">
+                                <select lay-filter="type" name="type">
+                                    <option value=""></option>
+                                    <option value="1">商品</option>
+                                    <option value="2">图片</option>
+                                    <option value="3">图文</option>
+                                    <option value="4">链接</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="layui-inline">
                             <button type="submit" class="layui-btn layui-btn-primary" lay-submit
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
@@ -89,6 +78,8 @@
                lay-event="edit">编辑</a>
             <a per-code="ad-space:del" class="layui-btn layui-btn-xs layui-btn-danger data-count-delete"
                lay-event="delete">删除</a>
+            <a per-code="ad:mgt" class="layui-btn layui-btn-xs "
+               lay-event="adMgt">广告管理</a>
         </script>
 
     </div>
@@ -109,50 +100,60 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
+                    <label class="layui-form-label layui-form-required">类型:</label>
+                    <div class="layui-input-block">
+                        <select name="type" lay-filter="type" lay-verType="tips" lay-verify="required" required>
+                            <option value=""></option>
+                            <option value="1">商品</option>
+                            <option value="2">图片</option>
+                            <option value="3">图文</option>
+                            <option value="4">链接</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label class="layui-form-label layui-form-required">广告编号:</label>
                     <div class="layui-input-block">
                         <input name="no" placeholder="请输入广告编号" class="layui-input"
                                lay-verType="tips" lay-verify="required" required/>
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">模板名称:</label>
-                    <div class="layui-input-block">
-                        <input name="templateName" placeholder="请输入模板名称" class="layui-input"
-                               lay-verType="tips" lay-verify="required" required/>
-                    </div>
-                </div>
+            </div>
+
+            <div class="layui-col-md6">
                 <div class="layui-form-item">
                     <label class="layui-form-label layui-form-required">容量:</label>
                     <div class="layui-input-block">
-                        <input name="number" placeholder="请输入容量" class="layui-input"
-                               lay-verType="tips" lay-verify="required" required/>
+                        <input type="number" name="number" placeholder="请输入容量" class="layui-input"
+                               lay-verType="tips" lay-verify="required|number" required/>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">类型:</label>
-                    <div class="layui-input-block">
-                        <input name="type" placeholder="请输入类型" class="layui-input"
-                               lay-verType="tips" lay-verify="required" required/>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">尺寸</label>
+                        <div class="layui-input-inline" style="width: 65px;">
+                            <input type="text" name="width" placeholder="宽" class="layui-input" lay-verType="tips"
+                                   lay-verify="required" required>
+                        </div>
+                        <div class="layui-form-mid">x</div>
+                        <div class="layui-input-inline" style="width: 65px;">
+                            <input type="text" name="height" placeholder="高" class="layui-input" lay-verType="tips"
+                                   lay-verify="required" required>
+                        </div>
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">图片:</label>
-                    <div class="layui-input-block">
-                        <input name="picWidth" placeholder="请输入图片" class="layui-input"
-                               lay-verType="tips" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">picHeight:</label>
-                    <div class="layui-input-block">
-                        <input name="picHeight" placeholder="请输入picHeight" class="layui-input"
-                               lay-verType="tips" lay-verify="required" required/>
-                    </div>
-                </div>
+            </div>
 
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">模板内容</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入模板内容" class="layui-textarea" name="template" lay-verType="tips"
+                          lay-verify="required" required></textarea>
             </div>
         </div>
+
         <div class="layui-form-item layui-input-block">
             <button class="layui-btn" lay-filter="adSpaceEditSubmit" lay-submit>保存</button>
             <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog" id="Cancel">取消</button>
@@ -181,13 +182,37 @@
                 {type: "checkbox", width: 50},
                 {field: 'name', title: '广告名称', sort: true},
                 {field: 'no', title: '广告编号', sort: true},
-                {field: 'templateName', title: '模板名称', sort: true},
                 {field: 'number', title: '容量', sort: true},
-                {field: 'type', title: '类型', sort: true},
-                {field: 'picWidth', title: '图片', sort: true},
-                {field: 'picHeight', title: 'picHeight', sort: true},
+                {
+                    title: '类型', sort: true, templet: function (d) {
+                        switch (d.type) {
+                            case 1: {
+                                return '商品';
+                            }
+                            case 2: {
+                                return '图片';
+                            }
+                            case 3: {
+                                return '图文';
+                            }
+                            case 4: {
+                                return '链接';
+                            }
+                            default: {
+                                return '';
+                            }
 
-                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+
+                        }
+                    }
+                },
+                {
+                    title: '尺寸', templet: function (d) {
+                        return d.width + "x" + d.height;
+                    }
+                },
+
+                {title: '操作', minWidth: 200, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
             limit: 15,
@@ -199,7 +224,7 @@
                 return data;
             }, done: function () {
                 $('[per-code]').each(function () {
-                    if ($.inArray($(this).attr('per-code'), parent.perCodes) === -1) {
+                    if ($.inArray($(this).attr('per-code'), parent.app.perCodes) === -1) {
                         $(this).hide();
                     }
                 });
@@ -259,6 +284,19 @@
                 showEditModel(obj.data);
             } else if (obj.event === 'delete') {
                 doDel(obj);
+            } else if (obj.event === 'adMgt') {
+                var index = layer.open({
+                    title: '广告管理',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: '/page/ad-mgt.html?id=' + obj.data.id
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
             }
         });
 

@@ -314,7 +314,7 @@
                 return data;
             }, done: function () {
                 $('[per-code]').each(function () {
-                    if ($.inArray($(this).attr('per-code'), parent.perCodes) === -1) {
+                    if ($.inArray($(this).attr('per-code'), parent.app.perCodes) === -1) {
                         $(this).hide();
                     }
                 });

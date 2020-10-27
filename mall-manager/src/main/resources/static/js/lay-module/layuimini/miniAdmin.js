@@ -83,7 +83,10 @@ layui.define(["jquery", "miniMenu", "element","miniTab", "miniTheme"], function 
                         listen: true,
                     });
                     miniAdmin.deleteLoader(options.loadingTime);
-                    window.perCodes = data.perCodes;
+                    window.app = {
+                        perCodes: data.perCodes,
+                        frontDomain: data.frontDomain
+                    };
                 }
             }).fail(function () {
                 miniAdmin.error('菜单接口有误');

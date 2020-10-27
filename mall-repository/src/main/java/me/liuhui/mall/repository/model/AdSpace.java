@@ -25,49 +25,44 @@ public class AdSpace {
      * 广告名称       db_column: name
      */
 
-private String name;
+    private String name;
 
     /**
      * 广告编号       db_column: no
      */
 
-private String no;
+    private String no;
 
     /**
      * 模板名称       db_column: template_name
      */
 
-private String templateName;
+    private String template;
 
     /**
      * 容量       db_column: number
      */
 
-private Integer number;
+    private Integer number;
 
     /**
      * 类型       db_column: type
      */
 
-private Integer type;
+    private Integer type;
 
     /**
-     * 图片       db_column: pic_width
+     * 图片       db_column: width
      */
 
-private Integer picWidth;
+    private Integer width;
 
     /**
-     * picHeight       db_column: pic_height
+     * height       db_column: height
      */
 
-    private Integer picHeight;
+    private Integer height;
     private Date createTime;
-
-
-
-
-
 
 
 }

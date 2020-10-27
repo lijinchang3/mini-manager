@@ -7,13 +7,11 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 
+ *
  */
 
 @Data
-public class Product  {
-
-
+public class Product {
 
 
     /**
@@ -21,49 +19,49 @@ public class Product  {
      */
 
     @Pk
-	private Long id;
+    private Long id;
 
     /**
      * 商品名称       db_column: name
      */
 
-private String name;
+    private String name;
 
     /**
      * 轮播图       db_column: pic_filenames
      */
 
-private String picFilenames;
+    private String picFilenames;
+    /**
+     *
+     */
+
+    private String mainPic;
 
     /**
      * 销售价       db_column: price
      */
 
-private Double price;
+    private Double price;
 
     /**
      * 原价       db_column: original_price
      */
 
-private Double originalPrice;
+    private Double originalPrice;
 
     /**
      * 成本价       db_column: cost_price
      */
 
-private Double costPrice;
+    private Double costPrice;
 
-    /**
-     * 页面描述       db_column: detail
-     */
-
-private String detail;
 
     /**
      * 创建时间       db_column: create_time
      */
 
-private Date createTime;
+    private Date createTime;
 
     /**
      * createAdmin       db_column: create_admin
@@ -94,42 +92,37 @@ private Date createTime;
      * 销量       db_column: sales_num
      */
 
-private Integer salesNum;
+    private Integer salesNum;
 
     /**
      * 虚拟销量       db_column: virtual_sales_num
      */
 
-private Integer virtualSalesNum;
+    private Integer virtualSalesNum;
 
     /**
      * 评价数量       db_column: evaluation_num
      */
 
-private Integer evaluationNum;
+    private Integer evaluationNum;
 
     /**
      * 商品评价的总平均分       db_column: evaluation_score
      */
 
-private Double evaluationScore;
+    private Double evaluationScore;
 
     /**
      * properties       db_column: properties
      */
 
-private String properties;
+    private String properties;
 
     /**
      * 备用字段       db_column: note
      */
 
-private String note;
-
-
-
-
-
+    private String note;
 
 
 }

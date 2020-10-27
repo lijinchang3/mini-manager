@@ -21,25 +21,26 @@ public class AdItem  {
      */
 
     @Pk
-	private Long id;
+    private Long id;
 
     /**
      * adSpaceId       db_column: ad_space_id
      */
 
-    private Integer adSpaceId;
+    private Long adSpaceId;
+
 
     /**
      * 广告名称       db_column: name
      */
 
-private String name;
+    private String name;
 
     /**
      * objectid       db_column: objectid
      */
 
-private Integer objectid;
+    private Long objectId;
 
     /**
      * 状态       db_column: status
@@ -60,21 +61,22 @@ private String content;
 private Double weight;
 
     /**
-     * createAdminId       db_column: create_admin_id
+     * createAdmin       db_column: create_admin
      */
 
-private Integer createAdminId;
+    private String createAdmin;
 
     /**
      * createTime       db_column: create_time
      */
 
-private Date createTime;
+    private Date createTime;
 
+    /**
+     * updateTime       db_column: update_time
+     */
 
-
-
-
+    private Date updateTime;
 
 
 }

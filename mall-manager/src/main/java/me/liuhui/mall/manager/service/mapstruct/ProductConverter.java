@@ -22,6 +22,8 @@ public interface ProductConverter {
 
     List<ProductVO> toVo(List<Product> entityList);
 
+    ProductVO toVo(Product product);
+
     Product createDtoToEntity(CreateProductDTO dto);
 
     Product modifyDtoToEntity(ModifyProductDTO dto);

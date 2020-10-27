@@ -1,7 +1,7 @@
 package me.liuhui.mall.manager.web.controller;
 
+
 import me.liuhui.mall.common.base.vo.ResultVO;
-import me.liuhui.mall.manager.web.annotation.PerCode;
 import me.liuhui.mall.manager.service.AdminService;
 import me.liuhui.mall.manager.service.RoleService;
 import me.liuhui.mall.manager.service.dto.admin.AdminDTO;
@@ -13,6 +13,7 @@ import me.liuhui.mall.manager.service.vo.admin.AdminInitVO;
 import me.liuhui.mall.manager.service.vo.admin.AdminVO;
 import me.liuhui.mall.manager.service.vo.admin.ListAdminVO;
 import me.liuhui.mall.manager.service.vo.role.ListRoleVO;
+import me.liuhui.mall.manager.web.annotation.PerCode;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

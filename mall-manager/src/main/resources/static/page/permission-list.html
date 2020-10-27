@@ -84,6 +84,9 @@
                 </div>
             </div>
         </div>
+        <div class="layui-row">
+
+        </div>
         <div class="layui-form-item layui-input-block">
             <button class="layui-btn" lay-filter="permissionEditSubmit" lay-submit>保存</button>
             <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog" id="Cancel">取消</button>
@@ -140,7 +143,7 @@
             ]],
             done: function () {
                 $('[per-code]').each(function(){
-                    if($.inArray($(this).attr('per-code'), parent.perCodes)  === -1 ){
+                    if ($.inArray($(this).attr('per-code'), parent.app.perCodes) === -1) {
                         $(this).hide();
                     }
                 });
@@ -220,6 +223,7 @@
                     //此处即为 radio 的监听事件
                     form.on('radio(changeType)', function (obj) {
                         $('.type-div').hide();
+                        $('.type-div input').val('');
                         $('.type-div-' + obj.value).show();
                     });
 

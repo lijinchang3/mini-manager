@@ -34,7 +34,6 @@
                         </div>
 
 
-
                         <div class="layui-inline">
                             <button type="submit" class="layui-btn layui-btn-primary" lay-submit
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
@@ -170,7 +169,7 @@
                     }, sort: true, width: 150
                 },
                 {field: 'createAdmin', title: '创建人', sort: true},
-                {field: 'state', title: '状态', templet: '#userTbState', sort: true, width: 100},
+                {field: 'status', title: '状态', templet: '#userTbState', sort: true, width: 100},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
@@ -183,7 +182,7 @@
                 return data;
             }, done: function () {
                 $('[per-code]').each(function () {
-                    if ($.inArray($(this).attr('per-code'), parent.perCodes) === -1) {
+                    if ($.inArray($(this).attr('per-code'), parent.app.perCodes) === -1) {
                         $(this).hide();
                     }
                 });

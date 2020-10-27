@@ -2,6 +2,9 @@ package me.liuhui.mall.manager.service.vo.ad.space;
 
 
 import lombok.Data;
+import me.liuhui.mall.manager.service.vo.ad.item.AdItemVO;
+
+import java.util.List;
 
 
 /**
@@ -27,7 +30,7 @@ public class AdSpaceVO {
     /**
      * 模板名称       db_column: template_name
      */
-    private String templateName;
+    private String template;
     /**
      * 容量       db_column: number
      */
@@ -37,15 +40,17 @@ public class AdSpaceVO {
      */
     private Integer type;
     /**
-     * 图片       db_column: pic_width
+     * 图片       db_column: width
      */
-    private Integer picWidth;
+    private Integer width;
     /**
-     * picHeight       db_column: pic_height
+     * height       db_column: height
      */
-    private Integer picHeight;
+    private Integer height;
 
+    private List<AdItemVO> adItemVos;
 
+    private String domain;
 }
 
 

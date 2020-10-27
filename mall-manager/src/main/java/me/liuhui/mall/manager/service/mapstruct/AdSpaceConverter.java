@@ -22,6 +22,8 @@ public interface AdSpaceConverter {
 
     List<AdSpaceVO> toVo(List<AdSpace> entityList);
 
+    AdSpaceVO toVo(AdSpace adSpace);
+
     AdSpace createDtoToEntity(CreateAdSpaceDTO dto);
 
     AdSpace modifyDtoToEntity(ModifyAdSpaceDTO dto);

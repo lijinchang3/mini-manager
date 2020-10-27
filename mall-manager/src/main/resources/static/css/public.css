@@ -83,3 +83,12 @@ body {
     top: -45px;
 
 }
+
+#productTableId + .layui-table-view .layui-table-body tbody > tr > td > .layui-table-cell {
+    height: 60px;
+    line-height: 60px;
+}
+
+.align-right {
+    text-align: right;
+}
