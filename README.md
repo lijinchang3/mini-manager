@@ -33,7 +33,7 @@
 
 ## 开发计划
 
-![avatar](doc/images/mini商城设计.png)
+![avatar](document/images/mini商城设计.png)
 
 
 #### 特别鸣谢
