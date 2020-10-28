@@ -10,10 +10,10 @@
 
 ## 运行环境
 
-JDK：jdk8+
-数据库服务器：Mysql
-缓存：redis
-ide：IntelliJ IDEA
+* JDK：jdk8+
+* 数据库服务器：Mysql
+* 缓存：redis
+* ide：IntelliJ IDEA
 
 ## 快速体验
 
