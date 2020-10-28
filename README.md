@@ -8,6 +8,19 @@
 
 **如果你喜欢这个开源项目请点个赞是对我的奖励**
 
+##运行环境
+JDK：jdk8+
+数据库服务器：Mysql
+缓存：redis
+ide：IntelliJ IDEA
+
+##快速体验
+* 将mini-mall项目源码通过maven形式导入IntelliJ IDEA；
+* 导入document/sql/mini-mall.sql数据文件,注意：数据库使用utf-8编码；
+* 修改application.yml文件中的数据库设置参数；
+* 访问后台地址：http://localhost:8888/
+* 管理员账号，用户名：admin 密码：123456
+
 ## 目前完成的功能
 ###### 管理后台
 

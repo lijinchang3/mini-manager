@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2020-10-27 16:30:57
+Date: 2020-10-28 19:00:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -364,7 +364,7 @@ CREATE TABLE `s_admin` (
 -- ----------------------------
 -- Records of s_admin
 -- ----------------------------
-INSERT INTO `s_admin` VALUES ('2', 'admin', '4297f44b13955235245b2497399d7a93', null, null, '超级管理员', '2013-03-17 22:30:31', '2020-10-27 16:28:50', '2', '1', '2020-10-27 16:28:50');
+INSERT INTO `s_admin` VALUES ('2', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '13331333223', 'aa@qq.com', '超级管理员', '2013-03-17 22:30:31', '2020-10-28 19:00:02', '2', '1', '2020-10-28 19:00:01');
 INSERT INTO `s_admin` VALUES ('28', 'kefu', 'e10adc3949ba59abbe56e057f20f883e', '13331333223', 'sdf@df.fd', '客服', '2020-10-27 16:28:21', '2020-10-27 16:28:33', 'admin', '1', '2020-10-27 16:28:33');
 
 -- ----------------------------
@@ -376,12 +376,11 @@ CREATE TABLE `s_admin_role` (
   `admin_id` bigint(20) DEFAULT NULL,
   `role_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COMMENT='后台用户和角色关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COMMENT='后台用户和角色关系表';
 
 -- ----------------------------
 -- Records of s_admin_role
 -- ----------------------------
-INSERT INTO `s_admin_role` VALUES ('31', '2', '8');
 INSERT INTO `s_admin_role` VALUES ('32', '21', '8');
 INSERT INTO `s_admin_role` VALUES ('33', '21', '10');
 INSERT INTO `s_admin_role` VALUES ('34', '26', '10');
@@ -391,6 +390,7 @@ INSERT INTO `s_admin_role` VALUES ('38', '23', '8');
 INSERT INTO `s_admin_role` VALUES ('39', '23', '10');
 INSERT INTO `s_admin_role` VALUES ('40', '27', '14');
 INSERT INTO `s_admin_role` VALUES ('41', '28', '12');
+INSERT INTO `s_admin_role` VALUES ('42', '2', '8');
 
 -- ----------------------------
 -- Table structure for s_permission
