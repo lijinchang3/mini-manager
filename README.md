@@ -1,4 +1,4 @@
-# mini-mal
+# mini-mall
 
 项目简介
 

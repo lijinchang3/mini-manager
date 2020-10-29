@@ -1,8 +1,10 @@
 package me.liuhui.mall.common.service;
 
+
 import me.liuhui.mall.common.base.vo.ResultVO;
 import me.liuhui.mall.common.service.dto.SaveAdHtmlDTO;
 import me.liuhui.mall.common.service.dto.TempToAdDTO;
+import me.liuhui.mall.common.service.dto.TempToProductDTO;
 import me.liuhui.mall.common.service.dto.UploadFileDTO;
 import me.liuhui.mall.common.service.vo.FileVO;
 
@@ -27,6 +29,8 @@ public interface FileService {
     ResultVO<FileVO> uploadTemp(UploadFileDTO dto) throws IOException;
 
     ResultVO<FileVO> tempToAd(TempToAdDTO dto);
+
+    ResultVO<FileVO> tempToProduct(TempToProductDTO dto);
 
     ResultVO<FileVO> saveAdHtml(SaveAdHtmlDTO dto);
 }

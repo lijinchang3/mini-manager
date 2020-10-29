@@ -30,38 +30,12 @@
                                 <input type="text" name="email" autocomplete="off" class="layui-input">
                             </div>
                         </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">密码</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="password" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">类型</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="type" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">状态</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="status" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
 
                         <div class="layui-inline">
                             <label class="layui-form-label">最后登录时间</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="lastLoginTime" autocomplete="off"
                                        class="layui-input rangeDate">
-                            </div>
-                        </div>
-
-
-                        <div class="layui-inline">
-                            <label class="layui-form-label">注册时间</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="registerTime" autocomplete="off" class="layui-input rangeDate">
                             </div>
                         </div>
 
@@ -78,9 +52,6 @@
 
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
-                <button per-code="user:add" class="layui-btn layui-btn-normal layui-btn-sm data-add-btn"
-                        lay-event="add"> 添加
-                </button>
                 <button per-code="user:del" class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn"
                         lay-event="delete"> 删除
                 </button>
@@ -107,49 +78,13 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label layui-form-required">用户名:</label>
                     <div class="layui-input-block">
-                        <input name="username" placeholder="请输入用户名" class="layui-input"
-                               lay-verType="tips" lay-verify="required" required/>
+                        <input name="username" placeholder="请输入用户名" class="layui-input layui-disabled" readonly />
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label layui-form-required">邮箱:</label>
                     <div class="layui-input-block">
                         <input name="email" placeholder="请输入邮箱" class="layui-input"
-                               lay-verType="tips" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">密码:</label>
-                    <div class="layui-input-block">
-                        <input name="password" placeholder="请输入密码" class="layui-input"
-                               lay-verType="tips" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">类型:</label>
-                    <div class="layui-input-block">
-                        <input name="type" placeholder="请输入类型" class="layui-input"
-                               lay-verType="tips" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">状态:</label>
-                    <div class="layui-input-block">
-                        <input name="status" placeholder="请输入状态" class="layui-input"
-                               lay-verType="tips" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">最后登录时间:</label>
-                    <div class="layui-input-block">
-                        <input name="lastLoginTime" placeholder="请输入最后登录时间" class="layui-input"
-                               lay-verType="tips" lay-verify="required" required/>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label layui-form-required">注册时间:</label>
-                    <div class="layui-input-block">
-                        <input name="registerTime" placeholder="请输入注册时间" class="layui-input"
                                lay-verType="tips" lay-verify="required" required/>
                     </div>
                 </div>
@@ -161,6 +96,11 @@
             <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog" id="Cancel">取消</button>
         </div>
     </form>
+</script>
+<script type="text/html" id="userTbState">
+    <input per-code="user:status"  type="checkbox" lay-filter="userTbStateCk" value="{{d.id}}" lay-skin="switch"
+           lay-text="正常|锁定" {{d.status==1?'checked':''}} style="display: none;"/>
+    <p style="display: none;">{{d.status==1?'正常':'锁定'}}</p>
 </script>
 <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
@@ -184,9 +124,27 @@
                 {type: "checkbox", width: 50},
                 {field: 'username', title: '用户名', sort: true},
                 {field: 'email', title: '邮箱', sort: true},
-                {field: 'password', title: '密码', sort: true},
-                {field: 'type', title: '类型', sort: true},
-                {field: 'status', title: '状态', sort: true},
+                {
+                    title: '类型', sort: true, templet: function (d) {
+                        switch (d.type) {
+                            case 1: {
+                                return '本站';
+                            }
+                            case 2: {
+                                return '微信';
+                            }
+                            case 3: {
+                                return 'QQ';
+                            }
+                            default: {
+                                return d.type;
+                            }
+
+
+                        }
+                    }
+                },
+                {field: 'status', title: '状态', templet: '#userTbState', sort: true, width: 100},
                 {field: 'lastLoginTime', title: '最后登录时间', sort: true},
                 {field: 'registerTime', title: '注册时间', sort: true},
 
@@ -202,8 +160,14 @@
                 return data;
             }, done: function () {
                 $('[per-code]').each(function () {
-                    if ($.inArray($(this).attr('per-code'), parent.app.perCodes) === -1) {
-                        $(this).hide();
+                    var _this = $(this);
+                    if ($.inArray(_this.attr('per-code'), parent.app.perCodes) === -1) {
+                        if(_this.is('[type=checkbox]')){
+                            _this.attr('disabled',true);
+                            _this.next().addClass('layui-disabled')
+                        }else{
+                            $(this).hide();
+                        }
                     }
                 });
             }
@@ -229,6 +193,31 @@
             }, 'data');
 
             return false;
+        });
+
+        /* 修改用户状态 */
+        form.on('switch(userTbStateCk)', function (obj) {
+            var loadIndex = layer.load(2);
+            $.ajax({
+                url: '/api/user/change-status',
+                type: 'post',
+                contentType: "application/json",
+                data: JSON.stringify({id: obj.elem.value, status: obj.elem.checked ? 1 : 2}),
+                dataType: "json",
+                success: function (res) {
+                    layer.close(loadIndex);
+                    if (res.code === 0) {
+                        layer.msg(res.msg, {icon: 1});
+                    } else {
+                        layer.msg(res.msg, {icon: 2});
+                        $(obj.elem).prop('checked', !obj.elem.checked);
+                        form.render('checkbox');
+                    }
+                }, error: function (data) {
+                    layer.close(loadIndex);
+                    layer.msg(data.responseJSON.msg, {icon: 2});
+                }
+            });
         });
 
         /**
@@ -264,6 +253,7 @@
                 doDel(obj);
             }
         });
+
 
         /* 删除 */
         function doDel(obj) {

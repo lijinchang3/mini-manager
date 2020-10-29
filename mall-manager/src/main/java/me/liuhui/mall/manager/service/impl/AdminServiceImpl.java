@@ -1,26 +1,28 @@
 
 package me.liuhui.mall.manager.service.impl;
 
+
 import me.liuhui.mall.common.base.vo.ResultVO;
+import me.liuhui.mall.manager.runtime.AdminSessionHolder;
+import me.liuhui.mall.manager.service.AdminService;
 import me.liuhui.mall.manager.service.PermissionService;
 import me.liuhui.mall.manager.service.dto.admin.AdminDTO;
 import me.liuhui.mall.manager.service.dto.admin.ChangeStatusDTO;
 import me.liuhui.mall.manager.service.dto.admin.ListAdminDTO;
 import me.liuhui.mall.manager.service.dto.admin.ModifyMyPasswordDTO;
-import me.liuhui.mall.repository.dao.AdminDao;
-import me.liuhui.mall.repository.dao.AdminRoleDao;
-import me.liuhui.mall.manager.runtime.AdminSessionHolder;
-import me.liuhui.mall.manager.service.AdminService;
 import me.liuhui.mall.manager.service.mapstruct.AdminConverter;
 import me.liuhui.mall.manager.service.vo.admin.AdminInitVO;
 import me.liuhui.mall.manager.service.vo.admin.AdminVO;
 import me.liuhui.mall.manager.service.vo.admin.ListAdminVO;
 import me.liuhui.mall.manager.service.vo.admin.PermissionVO;
+import me.liuhui.mall.repository.dao.AdminDao;
+import me.liuhui.mall.repository.dao.AdminRoleDao;
 import me.liuhui.mall.repository.model.Admin;
 import me.liuhui.mall.repository.model.AdminRole;
 import me.liuhui.mall.repository.model.Permission;
 import me.liuhui.mall.repository.model.enums.AdminStatus;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -38,6 +40,8 @@ import java.util.stream.Collectors;
  */
 @Service
 public class AdminServiceImpl implements AdminService {
+    @Value("${mall.file.domain}")
+    private String frontDomain;
     @Resource
     private AdminConverter adminConverter;
     @Resource
@@ -56,6 +60,7 @@ public class AdminServiceImpl implements AdminService {
         adminInitVO.setRealName(AdminSessionHolder.getCurrentAdmin().getRealName());
         Set<String> perCodes = AdminSessionHolder.getPermission().stream().map(Permission::getCode).collect(Collectors.toSet());
         adminInitVO.setPerCodes(perCodes);
+        adminInitVO.setFrontDomain(frontDomain);
         return ResultVO.buildSuccessResult(adminInitVO);
     }
 

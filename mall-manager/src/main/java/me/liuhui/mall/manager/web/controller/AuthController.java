@@ -30,7 +30,7 @@ public class AuthController {
     @Resource
     private AuthService authService;
 
-    @RequestMapping("/captcha")
+    @GetMapping("/captcha")
     public ResultVO<String> captcha(HttpSession session) {
         // 算术类型
         ArithmeticCaptcha captcha = new ArithmeticCaptcha(97, 38);

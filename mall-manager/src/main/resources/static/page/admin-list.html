@@ -125,7 +125,7 @@
 </script>
 <!-- 表格状态列 -->
 <script type="text/html" id="userTbState">
-    <input type="checkbox" lay-filter="userTbStateCk" value="{{d.id}}" lay-skin="switch"
+    <input per-code="admin:status"  type="checkbox" lay-filter="userTbStateCk" value="{{d.id}}" lay-skin="switch"
            lay-text="正常|锁定" {{d.status==1?'checked':''}} style="display: none;"/>
     <p style="display: none;">{{d.status==1?'正常':'锁定'}}</p>
 </script>
@@ -182,8 +182,14 @@
                 return data;
             }, done: function () {
                 $('[per-code]').each(function () {
-                    if ($.inArray($(this).attr('per-code'), parent.app.perCodes) === -1) {
-                        $(this).hide();
+                    var _this = $(this);
+                    if ($.inArray(_this.attr('per-code'), parent.app.perCodes) === -1) {
+                        if(_this.is('[type=checkbox]')){
+                            _this.attr('disabled',true);
+                            _this.next().addClass('layui-disabled')
+                        }else{
+                            $(this).hide();
+                        }
                     }
                 });
             }

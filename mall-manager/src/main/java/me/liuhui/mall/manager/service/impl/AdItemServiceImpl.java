@@ -43,7 +43,7 @@ import java.util.Set;
 @Slf4j
 @Service
 public class AdItemServiceImpl implements AdItemService {
-    @Value("${file.adPath}")
+    @Value("${mall.file.adPath}")
     private String adFilePath;
     @Resource
     private AdItemConverter adItemConverter;

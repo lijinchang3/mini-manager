@@ -1,6 +1,7 @@
 package me.liuhui.mall.manager.service;
 
 import me.liuhui.mall.common.base.vo.ResultVO;
+import me.liuhui.mall.manager.service.dto.user.ChangeStatusDTO;
 import me.liuhui.mall.manager.service.dto.user.ListUserDTO;
 import me.liuhui.mall.manager.service.dto.user.ModifyUserDTO;
 import me.liuhui.mall.manager.service.vo.user.ListUserVO;
@@ -17,5 +18,7 @@ public interface UserService {
 
 	ResultVO<ListUserVO> list(ListUserDTO dto);
 
+
+    ResultVO<Boolean> changeStatus(ChangeStatusDTO dto);
 
 }

@@ -6,6 +6,7 @@ import me.liuhui.mall.common.config.FilePathProperties;
 import me.liuhui.mall.common.service.FileService;
 import me.liuhui.mall.common.service.dto.SaveAdHtmlDTO;
 import me.liuhui.mall.common.service.dto.TempToAdDTO;
+import me.liuhui.mall.common.service.dto.TempToProductDTO;
 import me.liuhui.mall.common.service.dto.UploadFileDTO;
 import me.liuhui.mall.common.service.vo.FileVO;
 import org.apache.commons.io.FileUtils;
@@ -58,6 +59,22 @@ public class FileServiceImpl implements FileService {
         }
         String name = FilenameUtils.getName(dto.getTempFilePath());
         String path = filePathProperties.getAdPath() + "/image/" + dto.getAdSpaceId() + "/" + DateFormatUtils.format(new Date(), "yyyy-MM-dd") + "/" + name;
+        return storeFile(path,tempFile);
+
+    }
+
+    @Override
+    public ResultVO<FileVO> tempToProduct(TempToProductDTO dto) {
+        File tempFile = new File(filePathProperties.getBasePath() + dto.getTempFilePath());
+        if (!tempFile.exists()) {
+            return ResultVO.buildFailResult("未找到源文件");
+        }
+        String name = FilenameUtils.getName(dto.getTempFilePath());
+        String path = filePathProperties.getProduct().getPath() + "/" + dto.getProductId() + "/image/" + DateFormatUtils.format(new Date(), "yyyy-MM-dd") + "/" + name;
+        return storeFile(path,tempFile);
+    }
+
+    private ResultVO<FileVO> storeFile(String path,File tempFile) {
         File targetFile = new File(filePathProperties.getBasePath() + path);
         try {
             FileUtils.copyFile(tempFile, targetFile);
@@ -72,7 +89,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public ResultVO<FileVO> saveAdHtml(SaveAdHtmlDTO dto) {
-        String path = filePathProperties.getAdPath() + "/html/" + dto.getAdSpaceId() + "/" + dto.getNo() + ".html";
+        String path = filePathProperties.getAdPath() + "/html/" + dto.getNo() + ".html";
         try {
             FileUtils.writeStringToFile(new File(filePathProperties.getBasePath() + path), dto.getHtml(), StandardCharsets.UTF_8);
         } catch (IOException e) {

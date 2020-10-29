@@ -36,7 +36,7 @@ import java.util.*;
  */
 @Service
 public class AdSpaceServiceImpl implements AdSpaceService {
-    @Value("${file.domain}")
+    @Value("${mall.file.domain}")
     private String domain;
     @Resource
     private AdSpaceConverter adSpaceConverter;
@@ -88,7 +88,6 @@ public class AdSpaceServiceImpl implements AdSpaceService {
         adSpaceVo.setDomain(domain);
         String html = FreemarkerUtil.genHtml(adSpaceVo.getNo(), adSpaceVo.getTemplate(), adSpaceVo);
         SaveAdHtmlDTO dto = new SaveAdHtmlDTO();
-        dto.setAdSpaceId(adSpaceVo.getId());
         dto.setNo(adSpaceVo.getNo());
         dto.setHtml(html);
         fileService.saveAdHtml(dto);

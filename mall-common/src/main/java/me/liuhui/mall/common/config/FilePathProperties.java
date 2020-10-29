@@ -17,10 +17,19 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = FilePathProperties.PREFIX)
 public class FilePathProperties {
-    public static final String PREFIX = "file";
+    public static final String PREFIX = "mall.file";
 
     private String basePath;
     private String tempPath;
     private String adPath;
+    private Product product;
     private String domain;
+
+    @Data
+    public static class Product{
+        private String path;
+        private int picWidth;
+        private int picHeight;
+
+    }
 }

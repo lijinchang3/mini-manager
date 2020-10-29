@@ -3,29 +3,23 @@ package me.liuhui.mall.manager.service.dto.product;
 import me.liuhui.mall.common.base.dto.PageDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
+/**
+ * @author 清远
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ListProductDTO extends PageDto {
 
 
-    private Integer id;
+    private String likeName;
 
-    private String name;
-
-    private String picFilenames;
-
-    private Double price;
-
-    private Double originalPrice;
-
-    private Double costPrice;
-
-    private String detail;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date minCreateTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date maxCreateTime;
 
     private String createAdmin;
@@ -33,20 +27,5 @@ public class ListProductDTO extends PageDto {
     private Integer status;
 
     private Integer categoryId;
-
-    private Integer stock;
-
-    private Integer salesNum;
-
-    private Integer virtualSalesNum;
-
-    private Integer evaluationNum;
-
-    private Double evaluationScore;
-
-    private String properties;
-
-    private String note;
-
 
 }

@@ -18,4 +18,5 @@ public class AdminInitVO {
     private List<PermissionVO> menuInfo;
     private Set<String> perCodes;
     private String realName;
+    private String frontDomain;
 }

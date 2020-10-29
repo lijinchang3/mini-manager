@@ -3,13 +3,24 @@ spring:
     username: root
     password: 123456
     url: jdbc:mysql://localhost:3306/mini-mall?useUnicode=true&characterEncoding=utf-8&useSSL=false
+  redis:
+    host: localhost
+    port: 6379
+    jedis:
+      pool:
+        max-active: 100
+        min-idle: 0
 
-
-file:
-  basePath: E:/data/mall/static
-  tempPath: /temp
-  adPath: /ad
-  domain: http://www.mini-mall.com
+mall:
+  file:
+    basePath: D:/code/media-mall/mall-static
+    tempPath: /mall/temp
+    adPath: /mall/ad
+    domain: http://www.mini-mall.com
+    product:
+      path: /mall/product
+      picWidth: 350
+      heightWidth: 350
 
 
 
