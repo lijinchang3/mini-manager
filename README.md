@@ -1,4 +1,6 @@
-# mini-mal
+# main分支已停止维护，切换到master分支
+
+# mini-mall
 
 项目简介
 
