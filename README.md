@@ -2,7 +2,9 @@
 
 项目简介
 
-一个基于 Spring Boot 2.3.4 、 mybatis、layui的前后端分离的商城系统
+mini-mall项目是一套开源电商系统，基于SpringBoot2.0的后台权限管理系统界面简洁美观敏捷开发系统架构。包括前台商城系统及后台管理系统，使用SpringBoot+MyBatis+layuimini实现。
+
+
 
 正在持续开发中.....
 
