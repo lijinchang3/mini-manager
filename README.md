@@ -2,13 +2,13 @@
 
 项目简介
 
-mini-mall项目是一套开源电商系统，基于SpringBoot2.0的后台权限管理系统界面简洁美观敏捷开发系统架构。包括前台商城系统及后台管理系统，使用SpringBoot+MyBatis+layuimini实现。
-
+mini-mall项目是一套开源电商系统，基于SpringBoot2.0的后台权限管理系统界面简洁美观敏捷开发系统架构。包括前台商城系统及后台管理系统，使用SpringBoot+MyBatis+redis+layuimini实现。
+封装elasticsearch做产品搜索。
 
 
 正在持续开发中.....
 
-**如果你喜欢这个开源项目请点个赞是对我的奖励**
+**如果你喜欢这个开源项目还请点个star**
 
 
 ## 项目演示
