@@ -71,6 +71,10 @@
                 <button per-code="product:del" class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn"
                         lay-event="delete"> 删除
                 </button>
+                <button per-code="product:publish" class="layui-btn layui-btn-sm " lay-event="publish">上架</button>
+                <button per-code="product:suspend" class="layui-btn layui-btn-sm layui-btn-warm " lay-event="suspend">
+                    下架
+                </button>
             </div>
         </script>
 
@@ -96,6 +100,8 @@
 </div>
 
 <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script charset="utf-8" src="../js/lay-config.js"></script>
+<script charset="utf-8" src="../js/admin.js"></script>
 <script>
     layui.use(['form', 'table', 'laydate'], function () {
         var $ = layui.jquery,
@@ -230,7 +236,32 @@
                     return d.id;
                 });
                 doDel({ids: ids});
+            } else if (obj.event === 'suspend') {
+                var checkStatus = table.checkStatus('productTableId');
+                // 删除
+                var checkRows = checkStatus.data;
+                if (checkRows.length === 0) {
+                    layer.msg('请选择要下架的数据', {icon: 2});
+                    return;
+                }
+                var ids = checkRows.map(function (d) {
+                    return d.id;
+                });
+                doSuspend({ids: ids});
+            } else if (obj.event === 'publish') {
+                var checkStatus = table.checkStatus('productTableId');
+                // 删除
+                var checkRows = checkStatus.data;
+                if (checkRows.length === 0) {
+                    layer.msg('请选择要上架的数据', {icon: 2});
+                    return;
+                }
+                var ids = checkRows.map(function (d) {
+                    return d.id;
+                });
+                doPublish({ids: ids});
             }
+
         });
 
         //监听表格复选框选择
@@ -258,67 +289,78 @@
             } else if (obj.event === 'delete') {
                 doDel(obj);
             } else if (obj.event === 'suspend') {
-                layer.confirm('确定要下架该产品吗？', {
-                    skin: 'layui-layer-admin',
-                    shade: .1,
-                    icon: 7,
-                    title: '下架'
-                }, function (i) {
-                    layer.close(i);
-                    var loadIndex = layer.load(2);
-
-                    $.ajax({
-                        url: '/api/product/suspend',
-                        type: 'POST',
-                        data: {id: obj.data.id},
-                        success: function (res) {
-                            layer.close(loadIndex);
-                            if (res.code === 0) {
-                                layer.msg(res.msg, {icon: 1});
-                                table.reload('productTableId')
-                            } else {
-                                layer.msg(res.msg, {icon: 2});
-                            }
-                        }, error: function (data) {
-                            layer.close(loadIndex);
-                            layer.msg(data.responseJSON.msg, {icon: 2});
-                        }
-                    });
-
-                });
+                doSuspend(obj);
             } else if (obj.event === 'publish') {
-
-                layer.confirm('确定要上架该产品吗？', {
-                    skin: 'layui-layer-admin',
-                    shade: .1,
-                    icon: 3,
-                    title: '上架'
-                }, function (i) {
-                    layer.close(i);
-                    var loadIndex = layer.load(2);
-
-                    $.ajax({
-                        url: '/api/product/publish',
-                        type: 'POST',
-                        data: {id: obj.data.id},
-                        success: function (res) {
-                            layer.close(loadIndex);
-                            if (res.code === 0) {
-                                layer.msg(res.msg, {icon: 1});
-                                table.reload('productTableId')
-                            } else {
-                                layer.msg(res.msg, {icon: 2});
-                            }
-                        }, error: function (data) {
-                            layer.close(loadIndex);
-                            layer.msg(data.responseJSON.msg, {icon: 2});
-                        }
-                    });
-
-                });
-
+                doPublish(obj);
             }
         });
+
+        function doPublish(obj) {
+            layer.confirm('确定要上架选中产品吗？', {
+                skin: 'layui-layer-admin',
+                shade: .1,
+                icon: 3,
+                title: '上架'
+            }, function (i) {
+                layer.close(i);
+                var loadIndex = layer.load(2);
+
+                $.ajax({
+                    contentType: "application/json",
+                    url: '/api/product/publish',
+                    type: 'POST',
+                    data: JSON.stringify(obj.data ? [obj.data.id] : obj.ids),
+                    success: function (res) {
+                        layer.close(loadIndex);
+                        if (res.code === 0) {
+                            layer.msg(res.msg, {icon: 1});
+                            table.reload('productTableId')
+                        } else {
+                            layer.msg(res.msg, {icon: 2});
+                        }
+                    }, error: function (data) {
+                        layer.close(loadIndex);
+                        layer.msg(data.responseJSON.msg, {icon: 2});
+                    }
+                });
+
+            });
+
+        }
+
+        function doSuspend(obj) {
+            layer.confirm('确定要下架选中产品吗？', {
+                skin: 'layui-layer-admin',
+                shade: .1,
+                icon: 7,
+                title: '下架'
+            }, function (i) {
+                layer.close(i);
+                var loadIndex = layer.load(2);
+
+                $.ajax({
+                    contentType: "application/json",
+                    url: '/api/product/suspend',
+                    type: 'POST',
+                    data: JSON.stringify(obj.data ? [obj.data.id] : obj.ids),
+                    success: function (res) {
+                        layer.close(loadIndex);
+                        if (res.code === 0) {
+                            layer.msg(res.msg, {icon: 1});
+                            table.reload('productTableId')
+                        } else {
+                            layer.msg(res.msg, {icon: 2});
+                        }
+                    }, error: function (data) {
+                        layer.close(loadIndex);
+                        layer.msg(data.responseJSON.msg, {icon: 2});
+                    }
+                });
+
+            });
+
+
+        }
 
         /* 删除 */
         function doDel(obj) {

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.*;
 
+import static me.liuhui.mall.common.utils.Constants.CATEGORY_TOP_PID;
+
 /**
  * Created on 2020/10/14 20:12
  * <p>
@@ -35,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public ResultVO<List<CategoryVO>> subCategory(Long pid) {
         Map<String, Object> cond = new HashMap<>(2);
-        cond.put("pid", pid == null ? TOP_PID : pid);
+        cond.put("pid", pid == null ? CATEGORY_TOP_PID : pid);
         cond.put("orderBy", "weight desc");
         List<Category> categories = categoryDao.selectList(cond);
         return ResultVO.buildSuccessResult(categoryConverter.toVo(categories));
@@ -48,7 +50,7 @@ public class CategoryServiceImpl implements CategoryService {
         entity.setCreateTime(new Date());
         entity.setCreateAdmin(AdminSessionHolder.getCurrentAdmin().getUsername());
         categoryDao.insert(entity);
-        if (!TOP_PID.equals(entity.getPid())) {
+        if (!CATEGORY_TOP_PID.equals(entity.getPid())) {
             Category parent = categoryDao.selectByPk(entity.getPid());
             parent.setLeaf(false);
             categoryDao.update(parent, "leaf");
@@ -67,14 +69,14 @@ public class CategoryServiceImpl implements CategoryService {
         Category entity = categoryConverter.modifyDtoToEntity(dto);
         categoryDao.update(entity);
         if (!Objects.equals(oldPid, newPid)) {
-            if (!TOP_PID.equals(newPid)) {
+            if (!CATEGORY_TOP_PID.equals(newPid)) {
                 Category newParent = categoryDao.selectByPk(newPid);
                 if (newParent.getLeaf()) {
                     newParent.setLeaf(false);
                     categoryDao.update(newParent, "leaf");
                 }
             }
-            if (!TOP_PID.equals(oldPid)) {
+            if (!CATEGORY_TOP_PID.equals(oldPid)) {
                 Category oldParent = categoryDao.selectByPk(oldPid);
                 Map<String, Object> cond = new HashMap<>(2);
                 cond.put("pid", oldPid);

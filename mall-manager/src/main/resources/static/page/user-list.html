@@ -98,11 +98,14 @@
     </form>
 </script>
 <script type="text/html" id="userTbState">
-    <input per-code="user:status"  type="checkbox" lay-filter="userTbStateCk" value="{{d.id}}" lay-skin="switch"
+    <input per-code="user:status" type="checkbox" lay-filter="userTbStateCk" value="{{d.id}}" lay-skin="switch"
            lay-text="正常|锁定" {{d.status==1?'checked':''}} style="display: none;"/>
     <p style="display: none;">{{d.status==1?'正常':'锁定'}}</p>
 </script>
 <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script charset="utf-8" src="../js/lay-config.js"></script>
+<script charset="utf-8" src="../js/admin.js"></script>
+
 <script>
     layui.use(['form', 'table', 'laydate'], function () {
         var $ = layui.jquery,

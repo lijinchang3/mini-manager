@@ -10,7 +10,9 @@ import me.liuhui.mall.manager.service.vo.ad.space.ListAdSpaceVO;
 
 import java.util.Set;
 
-
+/**
+ * @author 清远
+ */
 public interface AdSpaceService {
 
 

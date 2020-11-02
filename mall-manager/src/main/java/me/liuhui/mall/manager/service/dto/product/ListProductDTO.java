@@ -1,8 +1,9 @@
 package me.liuhui.mall.manager.service.dto.product;
 
-import me.liuhui.mall.common.base.dto.PageDto;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import me.liuhui.mall.common.base.dto.PageDTO;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -12,7 +13,7 @@ import java.util.Date;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ListProductDTO extends PageDto {
+public class ListProductDTO extends PageDTO {
 
 
     private String likeName;

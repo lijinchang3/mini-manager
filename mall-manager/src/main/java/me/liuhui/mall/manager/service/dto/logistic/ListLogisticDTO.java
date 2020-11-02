@@ -1,10 +1,10 @@
 package me.liuhui.mall.manager.service.dto.logistic;
 
-import me.liuhui.mall.common.base.dto.PageDto;
 import lombok.Data;
+import me.liuhui.mall.common.base.dto.PageDTO;
 
 @Data
-public class ListLogisticDTO extends PageDto {
+public class ListLogisticDTO extends PageDTO {
 
 
     private Integer id;

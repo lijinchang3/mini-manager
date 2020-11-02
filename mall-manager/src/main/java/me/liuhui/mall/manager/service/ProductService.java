@@ -29,7 +29,7 @@ public interface ProductService {
 	 * @param id
 	 * @return
 	 */
-	ResultVO<Boolean> publish(Long id);
+	ResultVO<Boolean> publish(Set<Long> id);
 
 	/**
 	 * 下架
@@ -37,7 +37,7 @@ public interface ProductService {
 	 * @param id
 	 * @return
 	 */
-	ResultVO<Boolean> suspend(Long id);
+	ResultVO<Boolean> suspend(Set<Long> id);
 
 
 }

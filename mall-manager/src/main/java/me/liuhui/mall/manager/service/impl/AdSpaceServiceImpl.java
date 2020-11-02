@@ -122,7 +122,17 @@ public class AdSpaceServiceImpl implements AdSpaceService {
     @Override
     public ResultVO<Boolean> delete(Set<Long> ids) {
         for (Long id : ids) {
+            AdSpace adSpace = adSpaceDao.selectByPk(id);
+            if (adSpace == null) {
+                return ResultVO.buildFailResult("广告位不存在！");
+            }
+            SaveAdHtmlDTO dto = new SaveAdHtmlDTO();
+            dto.setNo(adSpace.getNo());
+            dto.setHtml("");
+            fileService.saveAdHtml(dto);
+            adItemDao.deleteBySpaceId(id);
             adSpaceDao.delete(id);
+
         }
         return ResultVO.buildSuccessResult();
     }

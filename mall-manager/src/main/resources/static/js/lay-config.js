@@ -29,4 +29,6 @@ layui.config({
     wangEditor: 'wangEditor/wangEditor', // wangEditor富文本扩展
     layarea: 'layarea/layarea', //  省市县区三级联动下拉选择器
     cascader: 'cascader/cascader', //  级联
+    nprogress: 'nprogress/nprogress', //  加载条
 });
+

@@ -26,18 +26,10 @@ public class UserVO {
      * 邮箱       db_column: email
      */
     private String email;
-    /**
-     * 密码       db_column: password
-     */
-    private String password;
-    /**
-     * 类型       db_column: type
-     */
-    private Integer type;
-    /**
-     * 状态       db_column: status
-     */
+
     private Integer status;
+    private Integer type;
+
     /**
      * 最后登录时间       db_column: last_login_time
      */

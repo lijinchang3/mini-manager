@@ -25,7 +25,9 @@ public class ProductVO {
     /**
      * 轮播图       db_column: pic_filenames
      */
+
     private String picFilenames;
+    private String mainPic;
     /**
      * 销售价       db_column: price
      */

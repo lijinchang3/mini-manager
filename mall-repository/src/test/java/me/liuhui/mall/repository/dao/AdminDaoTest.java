@@ -14,7 +14,7 @@ import java.util.Date;
 
 @TestPropertySource("classpath:application.properties")
 @RunWith(SpringRunner.class)
-@ComponentScan(basePackages = "com.lh.media.mall")
+@ComponentScan(basePackages = "me.liuhui.mall")
 @SpringBootTest(classes = AdminDaoTest.class)
 @EnableAutoConfiguration
 class AdminDaoTest {

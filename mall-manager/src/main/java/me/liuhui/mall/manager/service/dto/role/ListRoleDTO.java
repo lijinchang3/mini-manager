@@ -1,8 +1,8 @@
 package me.liuhui.mall.manager.service.dto.role;
 
-import me.liuhui.mall.common.base.dto.PageDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import me.liuhui.mall.common.base.dto.PageDTO;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ import java.util.Date;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ListRoleDTO extends PageDto {
+public class ListRoleDTO extends PageDTO {
 
 
     private Integer id;

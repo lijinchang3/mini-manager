@@ -1,6 +1,7 @@
 package me.liuhui.mall.manager.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,4 +20,12 @@ public class HttpUtil {
 		return AJAX_REQUEST_HEADER_VALUE.equals(request.getHeader(AJAX_REQUEST_HEADER_NAME)) || uri.substring(uri.lastIndexOf("/") + 1).startsWith(AJAX_REQUEST_PREFIX);
 	}
 
+	public static String getRemoteAddr(HttpServletRequest request) {
+		//nginx 代理
+		String ip = request.getHeader("X-Real-IP");
+		if (StringUtils.isBlank(ip)) {
+			ip = request.getRemoteAddr();
+		}
+		return ip;
+	}
 }

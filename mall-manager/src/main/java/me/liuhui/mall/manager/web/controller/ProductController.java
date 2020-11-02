@@ -41,14 +41,14 @@ public class ProductController {
 
     @PerCode("product:publish")
     @PostMapping("publish")
-    public ResultVO<Boolean> publish(@Validated @NotNull Long id) {
-        return productService.publish(id);
+    public ResultVO<Boolean> publish(@RequestBody @Validated @NotNull @Size(min = 1) Set<Long> ids) {
+        return productService.publish(ids);
     }
 
     @PerCode("product:suspend")
     @PostMapping("suspend")
-    public ResultVO<Boolean> suspend(@Validated @NotNull Long id) {
-        return productService.suspend(id);
+    public ResultVO<Boolean> suspend(@RequestBody @Validated @NotNull @Size(min = 1) Set<Long> ids) {
+        return productService.suspend(ids);
     }
 
 

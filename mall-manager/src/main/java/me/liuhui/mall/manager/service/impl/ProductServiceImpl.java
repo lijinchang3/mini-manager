@@ -2,6 +2,8 @@
 package me.liuhui.mall.manager.service.impl;
 
 import me.liuhui.mall.common.base.vo.ResultVO;
+import me.liuhui.mall.common.search.ProductSearcher;
+import me.liuhui.mall.common.search.document.ProductDoc;
 import me.liuhui.mall.common.service.FileService;
 import me.liuhui.mall.common.service.dto.TempToProductDTO;
 import me.liuhui.mall.common.service.vo.FileVO;
@@ -15,8 +17,10 @@ import me.liuhui.mall.manager.service.mapstruct.ProductConverter;
 import me.liuhui.mall.manager.service.vo.product.ListProductVO;
 import me.liuhui.mall.manager.service.vo.product.ProductVO;
 import me.liuhui.mall.repository.dao.AdItemDao;
+import me.liuhui.mall.repository.dao.CategoryDao;
 import me.liuhui.mall.repository.dao.ProductDao;
 import me.liuhui.mall.repository.dao.ProductDetailDao;
+import me.liuhui.mall.repository.model.Category;
 import me.liuhui.mall.repository.model.Product;
 import me.liuhui.mall.repository.model.ProductDetail;
 import me.liuhui.mall.repository.model.enums.AdItemStatus;
@@ -27,6 +31,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created on 2020/10/14 20:12
@@ -45,11 +50,15 @@ public class ProductServiceImpl implements ProductService {
     @Resource
     private ProductDao productDao;
     @Resource
+    private CategoryDao categoryDao;
+    @Resource
     private AdItemDao adItemDao;
     @Resource
     private ProductDetailDao productDetailDao;
     @Resource
     private FileService fileService;
+    @Resource
+    private ProductSearcher productSearcher;
 
     @Override
     public ResultVO<ListProductVO> list(ListProductDTO dto) {
@@ -81,42 +90,86 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ResultVO<Boolean> publish(Long id) {
-        Product product = productDao.selectByPk(id);
-        if (product == null) {
-            return ResultVO.buildFailResult("产品不存在");
+    public ResultVO<Boolean> publish(Set<Long> ids) {
+        List<Product> list = new ArrayList<>(ids.size());
+        StringBuilder failMsg = new StringBuilder();
+        for (Long id : ids) {
+            Product product = productDao.selectByPk(id);
+            if (product == null) {
+                failMsg.append("产品不存在:").append(id);
+                continue;
+            }
+            if (ProductStatus.SELLING.getCode().equals(product.getStatus())) {
+                failMsg.append("产品是上架状态:").append(product.getName());
+                continue;
+
+            }
+            if (product.getStock() <= 0) {
+                failMsg.append("库存不能为0:").append(product.getName());
+                continue;
+            }
+            product.setStatus(ProductStatus.SELLING.getCode());
+            productDao.update(product, "status");
+            list.add(product);
         }
-        if (ProductStatus.SELLING.getCode().equals(product.getStatus())) {
-            return ResultVO.buildFailResult("产品是上架状态！");
+        if (list.size() > 0) {
+            productSearcher.save(convertDoc(list));
         }
-        if (product.getStock() <= 0) {
-            return ResultVO.buildFailResult("库存不能为0！");
+        if (StringUtils.isNotBlank(failMsg.toString())) {
+            return ResultVO.buildFailResult(failMsg.toString());
         }
-        product.setStatus(ProductStatus.SELLING.getCode());
-        productDao.update(product, "status");
         return ResultVO.buildSuccessResult();
+    }
+
+    private List<ProductDoc> convertDoc(List<Product> products) {
+        return products.stream().map(product -> {
+            ProductDoc doc = productConverter.toDoc(product);
+            doc.setCategoryIds(Arrays.stream(product.getAllCategoryIds().split(",")).map(Long::valueOf).collect(Collectors.toList()));
+            doc.setCategoryNames(getCategoryName(doc.getCategoryIds()));
+            return doc;
+        }).collect(Collectors.toList());
+
+    }
+
+    private List<String> getCategoryName(List<Long> categoryIds) {
+        Map<String, Object> cond = new HashMap<>(2);
+        cond.put("id", categoryIds);
+        List<Category> categories = categoryDao.selectList(cond, "name");
+        return categories.stream().map(Category::getName).collect(Collectors.toList());
     }
 
 
     @Override
-    public ResultVO<Boolean> suspend(Long id) {
-        Product product = productDao.selectByPk(id);
-        if (product == null) {
-            return ResultVO.buildFailResult("产品不存在");
+    public ResultVO<Boolean> suspend(Set<Long> ids) {
+        StringBuilder failMsg = new StringBuilder();
+        for (Long id : ids) {
+            Product product = productDao.selectByPk(id);
+            if (product == null) {
+                failMsg.append("产品不存在:").append(id);
+                continue;
+            }
+            if (ProductStatus.SUSPEND.getCode().equals(product.getStatus())) {
+                failMsg.append("产品是下架状态:").append(product.getName());
+                continue;
+
+            }
+            if (countPromotion(id) > 0) {
+                failMsg.append("产品正在广告中:").append(product.getName());
+                continue;
+            }
+            product.setStatus(ProductStatus.SUSPEND.getCode());
+            productDao.update(product, "status");
+            productSearcher.delete(id);
         }
-        if (ProductStatus.SUSPEND.getCode().equals(product.getStatus())) {
-            return ResultVO.buildFailResult("产品是下架状态！");
+        if (StringUtils.isNotBlank(failMsg.toString())) {
+            return ResultVO.buildFailResult(failMsg.toString());
         }
-        if (countPromotion(id) > 0) {
-            return ResultVO.buildFailResult("产品正在广告中！");
-        }
-        product.setStatus(ProductStatus.SUSPEND.getCode());
-        productDao.update(product, "status");
         return ResultVO.buildSuccessResult();
     }
 
     /**
      * 统计广告位中商品
+     *
      * @param id
      * @return
      */

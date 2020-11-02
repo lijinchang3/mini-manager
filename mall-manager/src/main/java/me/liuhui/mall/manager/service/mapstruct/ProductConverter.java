@@ -2,6 +2,7 @@
 package me.liuhui.mall.manager.service.mapstruct;
 
 
+import me.liuhui.mall.common.search.document.ProductDoc;
 import me.liuhui.mall.manager.service.dto.product.CreateProductDTO;
 import me.liuhui.mall.manager.service.dto.product.ModifyProductDTO;
 import me.liuhui.mall.manager.service.vo.product.ProductVO;
@@ -27,4 +28,6 @@ public interface ProductConverter {
     Product createDtoToEntity(CreateProductDTO dto);
 
     Product modifyDtoToEntity(ModifyProductDTO dto);
+
+    ProductDoc toDoc(Product product);
 }

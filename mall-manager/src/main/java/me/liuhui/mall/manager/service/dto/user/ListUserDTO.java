@@ -1,12 +1,12 @@
 package me.liuhui.mall.manager.service.dto.user;
 
-import me.liuhui.mall.common.base.dto.PageDto;
 import lombok.Data;
+import me.liuhui.mall.common.base.dto.PageDTO;
 
 import java.util.Date;
 
 @Data
-public class ListUserDTO extends PageDto {
+public class ListUserDTO extends PageDTO {
 
 
     private Integer id;
