@@ -1,9 +1,9 @@
 package me.liuhui.mall.common.base.enums;
 
 
-import me.liuhui.mall.tools.utils.EnumUtil;
 import lombok.Getter;
 import lombok.ToString;
+import me.liuhui.mall.tools.utils.EnumUtil;
 
 /**
  * Created on 2018/1/19 10:46
@@ -32,8 +32,15 @@ public enum VoCodeEnum {
     PERMISSION_CENTER_ERROR(1004, "权限中心接口失败"),
     NO_PERMISSION(1005, "权限不足"),
     PERMISSION_CENTER_UNAUTHORIZED(1006, "很遗憾，您暂时没有该系统的权限"),
-    PASSWORD_ERROR(1007, "用户名或密码错误");
+    PASSWORD_ERROR(1007, "用户名或密码错误"),
 
+
+    CAPTCHA_ERROR(1008,"验证码错误"),
+    USER_NAME_EXIST(1009,"用户名存在"),
+    EMAIL_EXIST(1010,"邮箱已存在"),
+
+    NOT_FOUND_PRODUCT(2001,"找不到产品"),
+    ;
 
     private final int code;
     private final String msg;

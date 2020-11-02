@@ -13,7 +13,6 @@ import lombok.Data;
  */
 @Data
 public class SaveAdHtmlDTO {
-    private Long adSpaceId;
     private String no;
     private String html;
 }

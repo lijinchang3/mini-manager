@@ -3,7 +3,6 @@ package me.liuhui.mall.common.base.vo;
 import lombok.Data;
 
 import java.util.List;
-import java.util.StringJoiner;
 
 /**
  * Created on 2019/11/18 17:31
@@ -29,8 +28,8 @@ public class PageVO<T> {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", PageVO.class.getSimpleName() + "[", "]")
-                .add("total=" + total)
-                .toString();
+        return "PageVO{" +
+                "total=" + total +
+                '}';
     }
 }

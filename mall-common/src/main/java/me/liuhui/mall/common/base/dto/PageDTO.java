@@ -3,7 +3,6 @@ package me.liuhui.mall.common.base.dto;
 import lombok.Data;
 import org.apache.commons.beanutils.PropertyUtils;
 
-import javax.validation.constraints.Min;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
@@ -15,10 +14,8 @@ import java.util.Map;
  * @author [清远]
  */
 @Data
-public class PageDto {
-    @Min(value = 1)
+public class PageDTO {
     private Integer page;
-    @Min(value = 1)
     private Integer limit;
 
     private String orderBy;
