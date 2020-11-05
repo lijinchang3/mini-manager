@@ -32,7 +32,7 @@
                         </div>
 
                         <div class="layui-inline">
-                            <label class="layui-form-label">最后登录时间</label>
+                            <label class="layui-form-label">登录时间</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="lastLoginTime" autocomplete="off"
                                        class="layui-input rangeDate">
@@ -148,7 +148,7 @@
                     }
                 },
                 {field: 'status', title: '状态', templet: '#userTbState', sort: true, width: 100},
-                {field: 'lastLoginTime', title: '最后登录时间', sort: true},
+                {field: 'lastLoginTime', title: '登录时间', sort: true},
                 {field: 'registerTime', title: '注册时间', sort: true},
 
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
@@ -187,6 +187,15 @@
         // 监听搜索操作
         form.on('submit(data-search-btn)', function (data) {
             var param = data.field;
+            if(data.field.lastLoginTime){
+                var lastLoginTime = data.field.lastLoginTime.split(' - ');
+                param.minLastLoginTime = lastLoginTime[0];
+                param.maxLastLoginTime = lastLoginTime[1];
+            }else{
+                param.minLastLoginTime = '';
+                param.maxLastLoginTime = '';
+            }
+
             //执行搜索重载
             table.reload('currentTableId', {
                 page: {

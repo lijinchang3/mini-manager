@@ -132,7 +132,7 @@
     </appender>
 
 
-    <logger name="me.liuhui.mall.dao" level="debug"/>
+    <logger name="me.liuhui.mall.repository.dao" level="debug"/>
 
     <root level="info">
         <appender-ref ref="CONSOLE"/>

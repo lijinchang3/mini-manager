@@ -1,31 +1,38 @@
-package me.liuhui.mall.manager.service.dto.product;
+		package me.liuhui.mall.manager.service.dto.admin;
+
 
 import me.liuhui.mall.common.base.dto.PageDTO;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-/**
- * @author 清远
- */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class ListProductDTO extends PageDTO {
+public class ListAdminLoginRecordDTO extends PageDTO {
 
 
-    private String likeName;
+    private Integer id;
+
+    private Integer adminId;
+
+    private String adminUserName;
+
+    private String ip;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date minCreateTime;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date maxCreateTime;
 
-    private String createAdmin;
+    private String os;
 
-    private Integer status;
+    private String device;
 
-    private Integer categoryId;
+    private String browser;
 
+
+	
+	
+	
+	
 }

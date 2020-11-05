@@ -240,7 +240,7 @@ public class GenericMapperProvider {
 
     }
 
-
+    @SuppressWarnings("unchecked")
     public static String count(ProviderContext context, Map<String, Object> paramMap) {
         Map<String,Object> cond = (Map<String, Object>) paramMap.get("condition");
         final Model model = ModelFieldFactory.getModel(context.getMapperType());
@@ -260,7 +260,7 @@ public class GenericMapperProvider {
         }.toString();
     }
 
-
+    @SuppressWarnings("unchecked")
     public static String maxId(ProviderContext context, Map<String, Object> paramMap) {
         Map<String,Object> cond = (Map<String, Object>) paramMap.get("condition");
 

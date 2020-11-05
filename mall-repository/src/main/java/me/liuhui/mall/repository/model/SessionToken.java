@@ -34,6 +34,7 @@ private String sessionToken;
      */
 
     private Long userId;
+    private String username;
 
     /**
      * remoteAddress       db_column: remote_address

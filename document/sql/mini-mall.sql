@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2020-10-29 14:54:10
+Date: 2020-11-05 10:33:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -295,7 +295,7 @@ CREATE TABLE `p_category` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `create_admin` varchar(50) DEFAULT NULL COMMENT '创建人',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of p_category
@@ -368,7 +368,7 @@ CREATE TABLE `p_product_detail` (
   `detail` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `product_id` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of p_product_detail
@@ -442,13 +442,35 @@ CREATE TABLE `s_admin` (
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='管理员';
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='管理员';
 
 -- ----------------------------
 -- Records of s_admin
 -- ----------------------------
-INSERT INTO `s_admin` VALUES ('2', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '13331333223', 'aa@qq.com', '超级管理员', '2013-03-17 22:30:31', '2020-10-28 19:00:02', '2', '1', '2020-10-28 19:00:01');
+INSERT INTO `s_admin` VALUES ('2', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '13331333223', 'aa@qq.com', '超级管理员', '2013-03-17 22:30:31', '2020-11-05 10:32:58', '2', '1', '2020-11-05 10:32:57');
 INSERT INTO `s_admin` VALUES ('28', 'kefu', 'e10adc3949ba59abbe56e057f20f883e', '13331333223', 'sdf@df.fd', '客服', '2020-10-27 16:28:21', '2020-10-27 16:28:33', 'admin', '1', '2020-10-27 16:28:33');
+
+-- ----------------------------
+-- Table structure for s_admin_login_record
+-- ----------------------------
+DROP TABLE IF EXISTS `s_admin_login_record`;
+CREATE TABLE `s_admin_login_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `admin_id` int(11) DEFAULT NULL COMMENT '管理员id',
+  `admin_user_name` varchar(100) DEFAULT NULL COMMENT '用户名',
+  `ip` varchar(50) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '登录时间',
+  `os` varchar(50) DEFAULT NULL COMMENT '操作系统',
+  `device` varchar(50) DEFAULT NULL COMMENT '设备',
+  `browser` varchar(50) DEFAULT NULL COMMENT '浏览器',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of s_admin_login_record
+-- ----------------------------
+INSERT INTO `s_admin_login_record` VALUES ('8', '2', 'admin', '0:0:0:0:0:0:0:1', '2020-11-05 10:31:31', 'Windows 10', 'Computer', 'Chrome 8');
+INSERT INTO `s_admin_login_record` VALUES ('9', '2', 'admin', '0:0:0:0:0:0:0:1', '2020-11-05 10:32:58', 'Windows 10', 'Computer', 'Chrome 8');
 
 -- ----------------------------
 -- Table structure for s_admin_role
@@ -459,7 +481,7 @@ CREATE TABLE `s_admin_role` (
   `admin_id` bigint(20) DEFAULT NULL,
   `role_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COMMENT='后台用户和角色关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COMMENT='后台用户和角色关系表';
 
 -- ----------------------------
 -- Records of s_admin_role
@@ -491,7 +513,7 @@ CREATE TABLE `s_permission` (
   `weight` double(5,2) DEFAULT NULL COMMENT '排序',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8 COMMENT='后台用户权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8 COMMENT='后台用户权限表';
 
 -- ----------------------------
 -- Records of s_permission
@@ -537,6 +559,7 @@ INSERT INTO `s_permission` VALUES ('71', '68', '添加广告', 'ad:add', '', '2'
 INSERT INTO `s_permission` VALUES ('72', '68', '发布广告', 'ad:publish', '', '2', '', '2020-10-27 14:27:37', '1.00', '2020-10-27 14:27:36');
 INSERT INTO `s_permission` VALUES ('73', '51', '修改用户', 'user:update', '', '2', '', '2020-10-28 18:43:37', '1.00', '2020-10-28 18:43:36');
 INSERT INTO `s_permission` VALUES ('74', '51', '删除用户', 'user:del', '', '2', '', '2020-10-28 18:44:12', '1.00', '2020-10-28 18:44:12');
+INSERT INTO `s_permission` VALUES ('75', '33', '登录日志', 'admin:login-record', '', '1', '/page/login-record.html', '2020-11-05 10:32:24', '6.00', '2020-11-05 10:32:24');
 
 -- ----------------------------
 -- Table structure for s_role
@@ -567,7 +590,7 @@ CREATE TABLE `s_role_permission` (
   `role_id` int(20) DEFAULT NULL,
   `permission_id` int(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=763 DEFAULT CHARSET=utf8 COMMENT='后台用户角色和权限关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=805 DEFAULT CHARSET=utf8 COMMENT='后台用户角色和权限关系表';
 
 -- ----------------------------
 -- Records of s_role_permission
@@ -595,47 +618,48 @@ INSERT INTO `s_role_permission` VALUES ('169', '14', '37');
 INSERT INTO `s_role_permission` VALUES ('170', '14', '38');
 INSERT INTO `s_role_permission` VALUES ('171', '14', '39');
 INSERT INTO `s_role_permission` VALUES ('172', '14', '28');
-INSERT INTO `s_role_permission` VALUES ('722', '8', '64');
-INSERT INTO `s_role_permission` VALUES ('723', '8', '65');
-INSERT INTO `s_role_permission` VALUES ('724', '8', '66');
-INSERT INTO `s_role_permission` VALUES ('725', '8', '67');
-INSERT INTO `s_role_permission` VALUES ('726', '8', '68');
-INSERT INTO `s_role_permission` VALUES ('727', '8', '69');
-INSERT INTO `s_role_permission` VALUES ('728', '8', '70');
-INSERT INTO `s_role_permission` VALUES ('729', '8', '71');
-INSERT INTO `s_role_permission` VALUES ('730', '8', '72');
-INSERT INTO `s_role_permission` VALUES ('731', '8', '73');
-INSERT INTO `s_role_permission` VALUES ('732', '8', '74');
-INSERT INTO `s_role_permission` VALUES ('733', '8', '20');
-INSERT INTO `s_role_permission` VALUES ('734', '8', '28');
-INSERT INTO `s_role_permission` VALUES ('735', '8', '33');
-INSERT INTO `s_role_permission` VALUES ('736', '8', '34');
-INSERT INTO `s_role_permission` VALUES ('737', '8', '35');
-INSERT INTO `s_role_permission` VALUES ('738', '8', '36');
-INSERT INTO `s_role_permission` VALUES ('739', '8', '38');
-INSERT INTO `s_role_permission` VALUES ('740', '8', '39');
-INSERT INTO `s_role_permission` VALUES ('741', '8', '40');
-INSERT INTO `s_role_permission` VALUES ('742', '8', '41');
-INSERT INTO `s_role_permission` VALUES ('743', '8', '42');
-INSERT INTO `s_role_permission` VALUES ('744', '8', '43');
-INSERT INTO `s_role_permission` VALUES ('745', '8', '44');
-INSERT INTO `s_role_permission` VALUES ('746', '8', '45');
-INSERT INTO `s_role_permission` VALUES ('747', '8', '48');
-INSERT INTO `s_role_permission` VALUES ('748', '8', '49');
-INSERT INTO `s_role_permission` VALUES ('749', '8', '50');
-INSERT INTO `s_role_permission` VALUES ('750', '8', '51');
-INSERT INTO `s_role_permission` VALUES ('751', '8', '52');
-INSERT INTO `s_role_permission` VALUES ('752', '8', '53');
-INSERT INTO `s_role_permission` VALUES ('753', '8', '54');
-INSERT INTO `s_role_permission` VALUES ('754', '8', '55');
-INSERT INTO `s_role_permission` VALUES ('755', '8', '56');
-INSERT INTO `s_role_permission` VALUES ('756', '8', '57');
-INSERT INTO `s_role_permission` VALUES ('757', '8', '58');
-INSERT INTO `s_role_permission` VALUES ('758', '8', '59');
-INSERT INTO `s_role_permission` VALUES ('759', '8', '60');
-INSERT INTO `s_role_permission` VALUES ('760', '8', '61');
-INSERT INTO `s_role_permission` VALUES ('761', '8', '62');
-INSERT INTO `s_role_permission` VALUES ('762', '8', '63');
+INSERT INTO `s_role_permission` VALUES ('763', '8', '64');
+INSERT INTO `s_role_permission` VALUES ('764', '8', '65');
+INSERT INTO `s_role_permission` VALUES ('765', '8', '66');
+INSERT INTO `s_role_permission` VALUES ('766', '8', '67');
+INSERT INTO `s_role_permission` VALUES ('767', '8', '68');
+INSERT INTO `s_role_permission` VALUES ('768', '8', '69');
+INSERT INTO `s_role_permission` VALUES ('769', '8', '70');
+INSERT INTO `s_role_permission` VALUES ('770', '8', '71');
+INSERT INTO `s_role_permission` VALUES ('771', '8', '72');
+INSERT INTO `s_role_permission` VALUES ('772', '8', '73');
+INSERT INTO `s_role_permission` VALUES ('773', '8', '74');
+INSERT INTO `s_role_permission` VALUES ('774', '8', '75');
+INSERT INTO `s_role_permission` VALUES ('775', '8', '20');
+INSERT INTO `s_role_permission` VALUES ('776', '8', '28');
+INSERT INTO `s_role_permission` VALUES ('777', '8', '33');
+INSERT INTO `s_role_permission` VALUES ('778', '8', '34');
+INSERT INTO `s_role_permission` VALUES ('779', '8', '35');
+INSERT INTO `s_role_permission` VALUES ('780', '8', '36');
+INSERT INTO `s_role_permission` VALUES ('781', '8', '38');
+INSERT INTO `s_role_permission` VALUES ('782', '8', '39');
+INSERT INTO `s_role_permission` VALUES ('783', '8', '40');
+INSERT INTO `s_role_permission` VALUES ('784', '8', '41');
+INSERT INTO `s_role_permission` VALUES ('785', '8', '42');
+INSERT INTO `s_role_permission` VALUES ('786', '8', '43');
+INSERT INTO `s_role_permission` VALUES ('787', '8', '44');
+INSERT INTO `s_role_permission` VALUES ('788', '8', '45');
+INSERT INTO `s_role_permission` VALUES ('789', '8', '48');
+INSERT INTO `s_role_permission` VALUES ('790', '8', '49');
+INSERT INTO `s_role_permission` VALUES ('791', '8', '50');
+INSERT INTO `s_role_permission` VALUES ('792', '8', '51');
+INSERT INTO `s_role_permission` VALUES ('793', '8', '52');
+INSERT INTO `s_role_permission` VALUES ('794', '8', '53');
+INSERT INTO `s_role_permission` VALUES ('795', '8', '54');
+INSERT INTO `s_role_permission` VALUES ('796', '8', '55');
+INSERT INTO `s_role_permission` VALUES ('797', '8', '56');
+INSERT INTO `s_role_permission` VALUES ('798', '8', '57');
+INSERT INTO `s_role_permission` VALUES ('799', '8', '58');
+INSERT INTO `s_role_permission` VALUES ('800', '8', '59');
+INSERT INTO `s_role_permission` VALUES ('801', '8', '60');
+INSERT INTO `s_role_permission` VALUES ('802', '8', '61');
+INSERT INTO `s_role_permission` VALUES ('803', '8', '62');
+INSERT INTO `s_role_permission` VALUES ('804', '8', '63');
 
 -- ----------------------------
 -- Table structure for u_cart

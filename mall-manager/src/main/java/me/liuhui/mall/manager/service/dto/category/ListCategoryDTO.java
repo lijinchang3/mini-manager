@@ -1,10 +1,14 @@
 package me.liuhui.mall.manager.service.dto.category;
 
-import lombok.Data;
 import me.liuhui.mall.common.base.dto.PageDTO;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.Date;
 
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class ListCategoryDTO extends PageDTO {
 

@@ -30,7 +30,6 @@ layui.use(['jquery', 'nprogress'], function () {
         //扩展增强处理
         var _opt = $.extend(opt, {
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert(textStatus + "error");
                 //错误方法增强处理
                 fn.error(XMLHttpRequest, textStatus, errorThrown);
             },
@@ -39,7 +38,7 @@ layui.use(['jquery', 'nprogress'], function () {
                     //成功回调方法增强处理
                     fn.success(data, textStatus);
                 } else if (data.code === 1001) {
-                    layer.msg('登录超时', {icon: 2}, function () {
+                    layer.msg('登录超时', {icon: 2,time: 1000}, function () {
                         window.location = '/page/login.html';
                     });
                 } else {

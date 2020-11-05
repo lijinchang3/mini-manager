@@ -1,23 +1,19 @@
 
 package me.liuhui.mall.manager.service.impl;
 
-
 import me.liuhui.mall.common.base.vo.ResultVO;
 import me.liuhui.mall.manager.runtime.AdminSessionHolder;
 import me.liuhui.mall.manager.service.AdminService;
 import me.liuhui.mall.manager.service.PermissionService;
-import me.liuhui.mall.manager.service.dto.admin.AdminDTO;
-import me.liuhui.mall.manager.service.dto.admin.ChangeStatusDTO;
-import me.liuhui.mall.manager.service.dto.admin.ListAdminDTO;
-import me.liuhui.mall.manager.service.dto.admin.ModifyMyPasswordDTO;
+import me.liuhui.mall.manager.service.dto.admin.*;
 import me.liuhui.mall.manager.service.mapstruct.AdminConverter;
-import me.liuhui.mall.manager.service.vo.admin.AdminInitVO;
-import me.liuhui.mall.manager.service.vo.admin.AdminVO;
-import me.liuhui.mall.manager.service.vo.admin.ListAdminVO;
-import me.liuhui.mall.manager.service.vo.admin.PermissionVO;
+import me.liuhui.mall.manager.service.mapstruct.AdminLoginRecordConverter;
+import me.liuhui.mall.manager.service.vo.admin.*;
 import me.liuhui.mall.repository.dao.AdminDao;
+import me.liuhui.mall.repository.dao.AdminLoginRecordDao;
 import me.liuhui.mall.repository.dao.AdminRoleDao;
 import me.liuhui.mall.repository.model.Admin;
+import me.liuhui.mall.repository.model.AdminLoginRecord;
 import me.liuhui.mall.repository.model.AdminRole;
 import me.liuhui.mall.repository.model.Permission;
 import me.liuhui.mall.repository.model.enums.AdminStatus;
@@ -42,6 +38,10 @@ import java.util.stream.Collectors;
 public class AdminServiceImpl implements AdminService {
     @Value("${mall.file.domain}")
     private String frontDomain;
+    @Resource
+    private AdminLoginRecordConverter adminLoginRecordConverter;
+    @Resource
+    private AdminLoginRecordDao adminLoginRecordDao;
     @Resource
     private AdminConverter adminConverter;
     @Resource
@@ -108,11 +108,32 @@ public class AdminServiceImpl implements AdminService {
         return ResultVO.buildSuccessResult();
     }
 
+    @Override
+    public ResultVO<ListAdminLoginRecordVO> listLoginRecored(ListAdminLoginRecordDTO dto) {
+        if (StringUtils.isBlank(dto.getOrderBy())) {
+            dto.setOrderBy("id desc");
+        }
+        Map<String, Object> cond = dto.toMap();
+        long count = adminLoginRecordDao.count(cond);
+        List<AdminLoginRecord> adminLoginRecords = adminLoginRecordDao.selectList(cond);
+        ListAdminLoginRecordVO vo = new ListAdminLoginRecordVO();
+        vo.setTotal(count);
+        vo.setList(adminLoginRecordConverter.toVo(adminLoginRecords));
+        return ResultVO.buildSuccessResult(vo);
+    }
+
 
     @Override
     public ResultVO<ListAdminVO> list(ListAdminDTO dto) {
+        ListAdminVO vo = new ListAdminVO();
         Map<String, Object> cond = dto.toMap();
         long count = adminDao.count(cond);
+        vo.setTotal(count);
+        if(count == 0 ){
+            vo.setList(Collections.emptyList());
+            return ResultVO.buildSuccessResult(vo);
+        }
+
         List<Admin> admins = adminDao.selectList(cond);
         List<Long> adminIds = admins.stream().map(Admin::getId).collect(Collectors.toList());
         List<AdminRole> roles = adminRoleDao.selectRoleByAdmin(adminIds);
@@ -132,8 +153,6 @@ public class AdminServiceImpl implements AdminService {
             List<AdminRole> roleList = adminRoleMap.get(adminVO.getId());
             adminVO.setRoles(roleList);
         }
-        ListAdminVO vo = new ListAdminVO();
-        vo.setTotal(count);
         vo.setList(adminVos);
         return ResultVO.buildSuccessResult(vo);
     }

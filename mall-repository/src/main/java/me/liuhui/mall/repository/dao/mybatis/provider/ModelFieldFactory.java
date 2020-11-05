@@ -7,10 +7,9 @@ import me.liuhui.mall.repository.model.annotation.LogicDelete;
 import me.liuhui.mall.repository.model.annotation.MapperMapping;
 import me.liuhui.mall.repository.model.annotation.Pk;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.ResolvableType;
 import org.springframework.util.StringUtils;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -25,17 +24,16 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 public class ModelFieldFactory {
-    private static final Map<Class<?>, Model> classField = new ConcurrentHashMap<>(32);
+    private static final Map<Class<?>, Model> MODEL_CACHE = new ConcurrentHashMap<>(32);
 
     public static Model getModel(Class<?> clazz) {
-        return classField.computeIfAbsent(clazz, ModelFieldFactory::readModel);
+        return MODEL_CACHE.computeIfAbsent(clazz, ModelFieldFactory::readModel);
     }
 
     private static Model readModel(Class<?> daoClass) {
         log.info("反射读取{}实体类属性", daoClass);
-        Type actualTypeArgument = ((ParameterizedType) daoClass.getGenericInterfaces()[0]).getActualTypeArguments()[0];
-        Objects.requireNonNull(actualTypeArgument, "获取dao泛型失败！");
-        Class<?> domainClazz = (Class<?>) actualTypeArgument;
+        Class<?> domainClazz = ResolvableType.forClass(daoClass).getInterfaces()[0].resolveGeneric(0);
+        Objects.requireNonNull(domainClazz, "获取dao泛型失败！");
         Model model = new Model();
         model.setModelClass(domainClazz);
         model.setTableName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, domainClazz.getSimpleName()));

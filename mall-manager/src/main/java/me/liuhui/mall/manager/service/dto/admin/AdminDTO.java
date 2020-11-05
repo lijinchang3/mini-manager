@@ -36,4 +36,16 @@ public class AdminDTO {
 
     public interface UpdateMine {
     }
+
+    @Override
+    public String toString() {
+        return "AdminDTO{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", realName='" + realName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", roleIds='" + roleIds + '\'' +
+                '}';
+    }
 }

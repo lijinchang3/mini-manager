@@ -1,8 +1,8 @@
 package me.liuhui.mall.manager.service.dto.role;
 
+import me.liuhui.mall.common.base.dto.PageDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import me.liuhui.mall.common.base.dto.PageDTO;
 
 import java.util.Date;
 

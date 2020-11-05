@@ -1,16 +1,13 @@
 package me.liuhui.mall.manager.web.controller;
 
-
 import me.liuhui.mall.common.base.vo.ResultVO;
 import me.liuhui.mall.manager.service.AdminService;
 import me.liuhui.mall.manager.service.RoleService;
-import me.liuhui.mall.manager.service.dto.admin.AdminDTO;
-import me.liuhui.mall.manager.service.dto.admin.ChangeStatusDTO;
-import me.liuhui.mall.manager.service.dto.admin.ListAdminDTO;
-import me.liuhui.mall.manager.service.dto.admin.ModifyMyPasswordDTO;
+import me.liuhui.mall.manager.service.dto.admin.*;
 import me.liuhui.mall.manager.service.dto.role.ListRoleDTO;
 import me.liuhui.mall.manager.service.vo.admin.AdminInitVO;
 import me.liuhui.mall.manager.service.vo.admin.AdminVO;
+import me.liuhui.mall.manager.service.vo.admin.ListAdminLoginRecordVO;
 import me.liuhui.mall.manager.service.vo.admin.ListAdminVO;
 import me.liuhui.mall.manager.service.vo.role.ListRoleVO;
 import me.liuhui.mall.manager.web.annotation.PerCode;
@@ -65,6 +62,12 @@ public class AdminController {
     @GetMapping("list")
     public ResultVO<ListAdminVO> list(ListAdminDTO dto) {
         return adminService.list(dto);
+    }
+
+    @PerCode("admin:login-record")
+    @GetMapping("list-login-record")
+    public ResultVO<ListAdminLoginRecordVO> listLoginRecored(ListAdminLoginRecordDTO dto) {
+        return adminService.listLoginRecored(dto);
     }
 
     @PerCode("admin:add")

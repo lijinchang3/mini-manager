@@ -1,11 +1,15 @@
 package me.liuhui.mall.manager.service.dto.admin;
 
-import lombok.Data;
 import me.liuhui.mall.common.base.dto.PageDTO;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class ListAdminDTO extends PageDTO {
 

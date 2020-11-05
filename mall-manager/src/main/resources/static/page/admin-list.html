@@ -94,6 +94,8 @@
                                lay-verType="tips" lay-verify="required" required/>
                     </div>
                 </div>
+            </div>
+            <div class="layui-col-md6">
                 <div class="layui-form-item">
                     <label class="layui-form-label layui-form-required">邮箱:</label>
                     <div class="layui-input-block">
@@ -114,9 +116,8 @@
                         <div id="userEditRoleSel"></div>
                     </div>
                 </div>
-
-            </div>
         </div>
+            </div>
         <div class="layui-form-item layui-input-block">
             <button class="layui-btn" lay-filter="adminEditSubmit" lay-submit>保存</button>
             <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog" id="Cancel">取消</button>
@@ -207,9 +208,14 @@
         // 监听搜索操作
         form.on('submit(data-search-btn)', function (data) {
             var param = data.field;
-            var createTime = data.field.createTime.split(' - ');
-            param.minCreateTime = createTime[0];
-            param.maxCreateTime = createTime[1];
+            if(data.field.createTime) {
+                var createTime = data.field.createTime.split(' - ');
+                param.minCreateTime = createTime[0];
+                param.maxCreateTime = createTime[1];
+            }else{
+                param.minCreateTime = '';
+                param.maxCreateTime = '';
+            }
             //执行搜索重载
             table.reload('currentTableId', {
                 page: {

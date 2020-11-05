@@ -1,12 +1,10 @@
 package me.liuhui.mall.manager.service;
 
 import me.liuhui.mall.common.base.vo.ResultVO;
-import me.liuhui.mall.manager.service.dto.admin.AdminDTO;
-import me.liuhui.mall.manager.service.dto.admin.ChangeStatusDTO;
-import me.liuhui.mall.manager.service.dto.admin.ListAdminDTO;
-import me.liuhui.mall.manager.service.dto.admin.ModifyMyPasswordDTO;
+import me.liuhui.mall.manager.service.dto.admin.*;
 import me.liuhui.mall.manager.service.vo.admin.AdminInitVO;
 import me.liuhui.mall.manager.service.vo.admin.AdminVO;
+import me.liuhui.mall.manager.service.vo.admin.ListAdminLoginRecordVO;
 import me.liuhui.mall.manager.service.vo.admin.ListAdminVO;
 
 import java.util.Set;
@@ -36,4 +34,7 @@ public interface AdminService {
     ResultVO<ListAdminVO> list(ListAdminDTO dto);
 
     ResultVO<Boolean> changeStatus(ChangeStatusDTO dto);
+
+    ResultVO<ListAdminLoginRecordVO> listLoginRecored(ListAdminLoginRecordDTO dto) ;
+
 }

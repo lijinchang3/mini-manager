@@ -88,7 +88,6 @@
         var insTb = treeTable.render({
             elem: '#munu-table',
             url: '/api/category/sub-category',
-            page: false,
             tree: {
                 iconIndex: 2,           // 折叠图标显示在第几列
                 isPidData: true,        // 是否是id、pid形式数据
@@ -171,7 +170,9 @@
                         layer.close(loadIndex);
                         if (res.code === 0) {
                             layer.msg(res.msg, {icon: 1});
-                            insTb.refresh();
+                            insTb.reload({
+                                where:{pid:-1}
+                            });
                         } else {
                             layer.msg(res.msg, {icon: 2});
                         }
@@ -217,7 +218,9 @@
                                 if (res.code === 0) {
                                     layer.close(dIndex);
                                     layer.msg(res.msg, {icon: 1});
-                                    insTb.refresh();
+                                    insTb.reload({
+                                        where:{pid:-1}
+                                    });
                                 } else {
                                     layer.msg(res.msg, {icon: 2});
                                 }
