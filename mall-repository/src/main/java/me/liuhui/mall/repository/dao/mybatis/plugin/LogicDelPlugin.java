@@ -111,10 +111,7 @@ public class LogicDelPlugin implements Interceptor {
         log.info("设置properties：{}", properties);
     }
 
-    public static void main(String[] args) {
-        String id = "com.sunlands.bf.dao.mapper.OrderMapper.selectPhoneByStudentIdsGroupByStudentId";
-        System.out.println(id.substring(0, id.lastIndexOf(".")));
-    }
+
 
     public static class BoundSqlSqlSource implements SqlSource {
         private final BoundSql boundSql;
