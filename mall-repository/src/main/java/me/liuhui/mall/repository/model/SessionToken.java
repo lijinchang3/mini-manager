@@ -1,8 +1,8 @@
 package me.liuhui.mall.repository.model;
 
 
-import lombok.Data;
 import me.liuhui.mall.repository.model.annotation.Pk;
+import lombok.Data;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ import java.util.Date;
  */
 
 @Data
-public class SessionToken {
+public class SessionToken  {
 
 
 
@@ -47,6 +47,7 @@ private String remoteAddress;
      */
 
 private Date createTime;
+private Date loginDate;
 private Date updateTime;
 private Integer status;
 

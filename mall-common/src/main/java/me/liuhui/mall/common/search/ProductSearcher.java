@@ -1,7 +1,6 @@
 package me.liuhui.mall.common.search;
 
 import me.liuhui.mall.common.search.document.ProductDoc;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +14,6 @@ import java.util.Map;
  *
  * @author [清远]
  */
-@Component
 public class ProductSearcher  extends BaseSearcher<ProductDoc,Long> {
 
     @Override

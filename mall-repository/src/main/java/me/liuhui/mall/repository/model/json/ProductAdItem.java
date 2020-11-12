@@ -1,9 +1,9 @@
 package me.liuhui.mall.repository.model.json;
 
+import me.liuhui.mall.repository.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.liuhui.mall.repository.model.Product;
 
 /**
  * @author liuhui

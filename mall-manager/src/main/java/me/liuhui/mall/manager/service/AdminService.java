@@ -37,4 +37,5 @@ public interface AdminService {
 
     ResultVO<ListAdminLoginRecordVO> listLoginRecored(ListAdminLoginRecordDTO dto) ;
 
+    ResultVO<WelcomeVO> welcome();
 }

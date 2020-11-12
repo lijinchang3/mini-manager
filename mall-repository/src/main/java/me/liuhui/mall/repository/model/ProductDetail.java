@@ -1,7 +1,7 @@
 package me.liuhui.mall.repository.model;
 
-import lombok.Data;
 import me.liuhui.mall.repository.model.annotation.Pk;
+import lombok.Data;
 
 @Data
 public class ProductDetail {

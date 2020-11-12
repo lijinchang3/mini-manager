@@ -1,9 +1,9 @@
 package me.liuhui.mall.common.base.enums;
 
 
+import me.liuhui.mall.tools.utils.EnumUtil;
 import lombok.Getter;
 import lombok.ToString;
-import me.liuhui.mall.tools.utils.EnumUtil;
 
 /**
  * Created on 2018/1/19 10:46

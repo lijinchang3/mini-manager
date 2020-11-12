@@ -1,6 +1,5 @@
 package me.liuhui.mall.manager.web.controller;
 
-
 import me.liuhui.mall.common.base.vo.ResultVO;
 import me.liuhui.mall.manager.service.LogisticService;
 import me.liuhui.mall.manager.service.dto.logistic.CreateLogisticDTO;

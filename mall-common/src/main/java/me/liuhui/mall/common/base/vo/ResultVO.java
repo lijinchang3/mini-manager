@@ -1,9 +1,9 @@
 package me.liuhui.mall.common.base.vo;
 
 
+import me.liuhui.mall.common.base.enums.VoCodeEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.liuhui.mall.common.base.enums.VoCodeEnum;
 
 import java.io.Serializable;
 import java.util.Objects;

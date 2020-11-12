@@ -1,6 +1,5 @@
 package me.liuhui.mall.manager.service;
 
-
 import me.liuhui.mall.common.base.vo.ResultVO;
 import me.liuhui.mall.manager.service.dto.ad.item.AdItemDTO;
 

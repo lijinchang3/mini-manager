@@ -1,20 +1,18 @@
 package me.liuhui.mall.common.service.impl;
 
-import lombok.extern.slf4j.Slf4j;
 import me.liuhui.mall.common.base.vo.ResultVO;
-import me.liuhui.mall.common.config.FilePathProperties;
+import me.liuhui.mall.common.config.properties.FilePathProperties;
 import me.liuhui.mall.common.service.FileService;
 import me.liuhui.mall.common.service.dto.SaveAdHtmlDTO;
 import me.liuhui.mall.common.service.dto.TempToAdDTO;
 import me.liuhui.mall.common.service.dto.TempToProductDTO;
 import me.liuhui.mall.common.service.dto.UploadFileDTO;
 import me.liuhui.mall.common.service.vo.FileVO;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -30,11 +28,14 @@ import java.util.Date;
  * @author [清远]
  */
 @Slf4j
-@Service
 public class FileServiceImpl implements FileService {
 
-    @Resource
-    private FilePathProperties filePathProperties;
+
+    private final FilePathProperties filePathProperties;
+
+    public FileServiceImpl(FilePathProperties filePathProperties) {
+        this.filePathProperties = filePathProperties;
+    }
 
     @Override
     public ResultVO<FileVO> uploadTemp(UploadFileDTO dto) throws IOException {
@@ -64,7 +65,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public ResultVO<FileVO> tempToProduct(TempToProductDTO dto) {
+    public ResultVO<FileVO> tempToProduct(TempToProductDTO  dto) {
         File tempFile = new File(filePathProperties.getBasePath() + dto.getTempFilePath());
         if (!tempFile.exists()) {
             return ResultVO.buildFailResult("未找到源文件");

@@ -28,261 +28,34 @@
 id,no,status,total_amount,pay_amount,refund_amount,total_quantity,consumer_user_id,consignee_tel,consignee_cellphone,consignee_name,consignee_address,create_time,pay_time,logisticid,logistic_no
 		</sql>
 
-
-	<!--<insert id="insert" useGeneratedKeys="true" keyProperty="id">
-	        insert into
-	        	o_order 
-	        <trim prefix="(" suffix=")" suffixOverrides="," >
-	     				<if test="no != null">
-				       	 no ,
-				      </if>
-	     				<if test="status != null">
-				       	 status ,
-				      </if>
-	     				<if test="totalAmount != null">
-				       	 total_amount ,
-				      </if>
-	     				<if test="payAmount != null">
-				       	 pay_amount ,
-				      </if>
-	     				<if test="refundAmount != null">
-				       	 refund_amount ,
-				      </if>
-	     				<if test="totalQuantity != null">
-				       	 total_quantity ,
-				      </if>
-	     				<if test="consumerUserId != null">
-				       	 consumer_user_id ,
-				      </if>
-	     				<if test="consigneeTel != null">
-				       	 consignee_tel ,
-				      </if>
-	     				<if test="consigneeCellphone != null">
-				       	 consignee_cellphone ,
-				      </if>
-	     				<if test="consigneeName != null">
-				       	 consignee_name ,
-				      </if>
-	     				<if test="consigneeAddress != null">
-				       	 consignee_address ,
-				      </if>
-	     				<if test="createTime != null">
-				       	 create_time ,
-				      </if>
-	     				<if test="payTime != null">
-				       	 pay_time ,
-				      </if>
-	     				<if test="logisticid != null">
-				       	 logisticid ,
-				      </if>
-	     				<if test="logisticNo != null">
-				       	 logistic_no ,
-				      </if>
-	        </trim>
-    		<trim prefix="values (" suffix=")" suffixOverrides="," >
-		     				<if test="no != null">
-					       	 #{no} ,
-					      </if>
-		     				<if test="status != null">
-					       	 #{status} ,
-					      </if>
-		     				<if test="totalAmount != null">
-					       	 #{totalAmount} ,
-					      </if>
-		     				<if test="payAmount != null">
-					       	 #{payAmount} ,
-					      </if>
-		     				<if test="refundAmount != null">
-					       	 #{refundAmount} ,
-					      </if>
-		     				<if test="totalQuantity != null">
-					       	 #{totalQuantity} ,
-					      </if>
-		     				<if test="consumerUserId != null">
-					       	 #{consumerUserId} ,
-					      </if>
-		     				<if test="consigneeTel != null">
-					       	 #{consigneeTel} ,
-					      </if>
-		     				<if test="consigneeCellphone != null">
-					       	 #{consigneeCellphone} ,
-					      </if>
-		     				<if test="consigneeName != null">
-					       	 #{consigneeName} ,
-					      </if>
-		     				<if test="consigneeAddress != null">
-					       	 #{consigneeAddress} ,
-					      </if>
-		     				<if test="createTime != null">
-					       	 #{createTime} ,
-					      </if>
-		     				<if test="payTime != null">
-					       	 #{payTime} ,
-					      </if>
-		     				<if test="logisticid != null">
-					       	 #{logisticid} ,
-					      </if>
-		     				<if test="logisticNo != null">
-					       	 #{logisticNo} ,
-					      </if>
-	       </trim>
-	</insert>
-	
-	
-	
-
-     <select id="selectById" resultMap="BaseResultMap" parameterType="long">
-			select
-				 <include refid="BaseColumnList" />
-		    from
-		    	o_order 
-		     where 
-				o_order.id = #{id}
+	<select id="sumAmount"  resultType="double">
+		select sum(pay_amount) from o_order
+		<where>
+			<if test="status != null">
+				status = #{status}
+			</if>
+		</where>
 	</select>
-    
-    
-    <update id="update"   >
-   		 update o_order
-    <set>
-    		<if test="no != null">
-		        no = #{no},
-		      </if><if test="status != null">
-		        status = #{status},
-		      </if><if test="totalAmount != null">
-		        total_amount = #{totalAmount},
-		      </if><if test="payAmount != null">
-		        pay_amount = #{payAmount},
-		      </if><if test="refundAmount != null">
-		        refund_amount = #{refundAmount},
-		      </if><if test="totalQuantity != null">
-		        total_quantity = #{totalQuantity},
-		      </if><if test="consumerUserId != null">
-		        consumer_user_id = #{consumerUserId},
-		      </if><if test="consigneeTel != null">
-		        consignee_tel = #{consigneeTel},
-		      </if><if test="consigneeCellphone != null">
-		        consignee_cellphone = #{consigneeCellphone},
-		      </if><if test="consigneeName != null">
-		        consignee_name = #{consigneeName},
-		      </if><if test="consigneeAddress != null">
-		        consignee_address = #{consigneeAddress},
-		      </if><if test="createTime != null">
-		        create_time = #{createTime},
-		      </if><if test="payTime != null">
-		        pay_time = #{payTime},
-		      </if><if test="logisticid != null">
-		        logisticid = #{logisticid},
-		      </if><if test="logisticNo != null">
-		        logistic_no = #{logisticNo},
-		      </if>
-    </set>
-    where id = #{id}
-   </update>
-    
-    
-    <sql id="listWhere">
-				       <if test="id != null">
-							and o_order.id = #{id}
-						</if>
-	       		 	 <if test="no != null and no != '' ">
-							and o_order.no = #{no}
-						</if>
-				       <if test="status != null">
-							and o_order.status = #{status}
-						</if>
-				       <if test="totalAmount != null">
-							and o_order.total_amount = #{totalAmount}
-						</if>
-				       <if test="payAmount != null">
-							and o_order.pay_amount = #{payAmount}
-						</if>
-				       <if test="refundAmount != null">
-							and o_order.refund_amount = #{refundAmount}
-						</if>
-				       <if test="totalQuantity != null">
-							and o_order.total_quantity = #{totalQuantity}
-						</if>
-				       <if test="consumerUserId != null">
-							and o_order.consumer_user_id = #{consumerUserId}
-						</if>
-	       		 	 <if test="consigneeTel != null and consigneeTel != '' ">
-							and o_order.consignee_tel = #{consigneeTel}
-						</if>
-	       		 	 <if test="consigneeCellphone != null and consigneeCellphone != '' ">
-							and o_order.consignee_cellphone = #{consigneeCellphone}
-						</if>
-	       		 	 <if test="consigneeName != null and consigneeName != '' ">
-							and o_order.consignee_name = #{consigneeName}
-						</if>
-	       		 	 <if test="consigneeAddress != null and consigneeAddress != '' ">
-							and o_order.consignee_address = #{consigneeAddress}
-						</if>
-	       <if test="minCreateTime != null">
-    			<![CDATA[
+
+	<select id="countOrder" resultType="me.liuhui.mall.repository.model.dao.DateCount">
+		select date_format(create_time, '%Y-%m-%d') date, count(1) num from o_order
+		<where>
+			<if test="minCreateTime != null">
+				<![CDATA[
 					and o_order.create_time >= #{minCreateTime}
 	    		]]>
-		   </if>
-	       <if test="maxCreateTime != null">
-	    		<![CDATA[
+			</if>
+			<if test="maxCreateTime != null">
+				<![CDATA[
 					and o_order.create_time <= #{maxCreateTime}
 		    	]]>
-		   </if>
-	       <if test="minPayTime != null">
-    			<![CDATA[
-					and o_order.pay_time >= #{minPayTime}
-	    		]]>
-		   </if>
-	       <if test="maxPayTime != null">
-	    		<![CDATA[
-					and o_order.pay_time <= #{maxPayTime}
-		    	]]>
-		   </if>
-				       <if test="logisticid != null">
-							and o_order.logisticid = #{logisticid}
-						</if>
-	       		 	 <if test="logisticNo != null and logisticNo != '' ">
-							and o_order.logistic_no = #{logisticNo}
-						</if>
-   </sql>
-    
-    <select id="count" resultType="long">
-   		select 
-   			count(*)
-   		from
-   			o_order
-   		<where>
-   			<include refid="listWhere"/>
-   		</where>
-   </select>
-	
+			</if>
+		</where>
+		group by date
+	</select>
 
-    <select id="selectList" resultMap="BaseResultMap" >
-   		select 
-   			 <include refid="BaseColumnList"/>
-   		from
-   			o_order
-   		<where>
-   			<include refid="listWhere"/>
-   		</where>
-   		<if test="orderBy != null ">
-   			order by ${orderBy}
-   			<if test="sort != null ">
-   				${ sort}
-   			</if>
-   		</if>
-   		<if test="beginIndex != null and resultSize != null">
-			limit #{beginIndex} , #{resultSize}
-		</if>
-   </select>
-    
-   
-	<delete id="deleteById" parameterType="long" >
-	    delete from o_order
-	    where id = #{id}
-  </delete>
-  -->
-   
-    <select id="selectByNo" resultMap="BaseResultMap" parameterType="String">
+
+	<select id="selectByNo" resultMap="BaseResultMap" parameterType="String">
 	   select 
    			 <include refid="BaseColumnList"/>
    		from

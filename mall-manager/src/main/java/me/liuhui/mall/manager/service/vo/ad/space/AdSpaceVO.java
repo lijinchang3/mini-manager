@@ -1,8 +1,8 @@
 package me.liuhui.mall.manager.service.vo.ad.space;
 
 
-import lombok.Data;
 import me.liuhui.mall.manager.service.vo.ad.item.AdItemVO;
+import lombok.Data;
 
 import java.util.List;
 

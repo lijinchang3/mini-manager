@@ -93,7 +93,22 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public ResultVO<Boolean> delete(Set<Long> ids) {
         for (Long id : ids) {
+            Category category = categoryDao.selectByPk(id);
+            if(category == null){
+                return ResultVO.buildFailResult("分类不存在");
+            }
             categoryDao.delete(id);
+            if(!CATEGORY_TOP_PID.equals(category.getPid())) {
+                Map<String, Object> cond = new HashMap<>(2);
+                cond.put("pid", category.getPid());
+                long childNum = categoryDao.count(cond);
+                if (childNum == 0) {
+                    Category parent = new Category();
+                    parent.setId(category.getPid());
+                    parent.setLeaf(true);
+                    categoryDao.update(parent, "leaf");
+                }
+            }
         }
         return ResultVO.buildSuccessResult();
     }

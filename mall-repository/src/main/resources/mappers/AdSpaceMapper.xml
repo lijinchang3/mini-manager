@@ -9,15 +9,15 @@
 		<id column="id" property="id"/>
 		<result property="name" column="name"/>
 		<result property="no" column="no"/>
-		<result property="templateName" column="template_name"/>
+		<result property="template" column="template_name"/>
 		<result property="number" column="number"/>
 		<result property="type" column="type"/>
-		<result property="picWidth" column="pic_width"/>
-		<result property="picHeight" column="pic_height"/>
+		<result property="width" column="width"/>
+		<result property="height" column="height"/>
 	</resultMap>
 
 	<sql id="BaseColumnList">
-id,name,no,template_name,number,type,pic_width,pic_height
+id,name,no,template_name,number,type,width,height
 		</sql>
 
 
@@ -31,7 +31,7 @@ id,name,no,template_name,number,type,pic_width,pic_height
 	     				<if test="no != null">
 				       	 no ,
 				      </if>
-	     				<if test="templateName != null">
+	     				<if test="template != null">
 				       	 template_name ,
 				      </if>
 	     				<if test="number != null">
@@ -40,11 +40,11 @@ id,name,no,template_name,number,type,pic_width,pic_height
 	     				<if test="type != null">
 				       	 type ,
 				      </if>
-	     				<if test="picWidth != null">
-				       	 pic_width ,
+	     				<if test="width != null">
+				       	 width ,
 				      </if>
-	     				<if test="picHeight != null">
-				       	 pic_height ,
+	     				<if test="height != null">
+				       	 height ,
 				      </if>
 	        </trim>
     		<trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -54,8 +54,8 @@ id,name,no,template_name,number,type,pic_width,pic_height
 		     				<if test="no != null">
 					       	 #{no} ,
 					      </if>
-		     				<if test="templateName != null">
-					       	 #{templateName} ,
+		     				<if test="template != null">
+					       	 #{template} ,
 					      </if>
 		     				<if test="number != null">
 					       	 #{number} ,
@@ -63,11 +63,11 @@ id,name,no,template_name,number,type,pic_width,pic_height
 		     				<if test="type != null">
 					       	 #{type} ,
 					      </if>
-		     				<if test="picWidth != null">
-					       	 #{picWidth} ,
+		     				<if test="width != null">
+					       	 #{width} ,
 					      </if>
-		     				<if test="picHeight != null">
-					       	 #{picHeight} ,
+		     				<if test="height != null">
+					       	 #{height} ,
 					      </if>
 	       </trim>
 	</insert>
@@ -92,16 +92,16 @@ id,name,no,template_name,number,type,pic_width,pic_height
 		        name = #{name},
 		      </if><if test="no != null">
 		        no = #{no},
-		      </if><if test="templateName != null">
-		        template_name = #{templateName},
+		      </if><if test="template != null">
+		        template_name = #{template},
 		      </if><if test="number != null">
 		        number = #{number},
 		      </if><if test="type != null">
 		        type = #{type},
-		      </if><if test="picWidth != null">
-		        pic_width = #{picWidth},
-		      </if><if test="picHeight != null">
-		        pic_height = #{picHeight},
+		      </if><if test="width != null">
+		        width = #{width},
+		      </if><if test="height != null">
+		        height = #{height},
 		      </if>
     </set>
     where id = #{id}
@@ -118,8 +118,8 @@ id,name,no,template_name,number,type,pic_width,pic_height
 	       		 	 <if test="no != null and no != '' ">
 							and a_ad_space.no = #{no}
 						</if>
-	       		 	 <if test="templateName != null and templateName != '' ">
-							and a_ad_space.template_name = #{templateName}
+	       		 	 <if test="template != null and template != '' ">
+							and a_ad_space.template_name = #{template}
 						</if>
 				       <if test="number != null">
 							and a_ad_space.number = #{number}
@@ -127,11 +127,11 @@ id,name,no,template_name,number,type,pic_width,pic_height
 				       <if test="type != null">
 							and a_ad_space.type = #{type}
 						</if>
-				       <if test="picWidth != null">
-							and a_ad_space.pic_width = #{picWidth}
+				       <if test="width != null">
+							and a_ad_space.width = #{width}
 						</if>
-				       <if test="picHeight != null">
-							and a_ad_space.pic_height = #{picHeight}
+				       <if test="height != null">
+							and a_ad_space.height = #{height}
 						</if>
    </sql>
     

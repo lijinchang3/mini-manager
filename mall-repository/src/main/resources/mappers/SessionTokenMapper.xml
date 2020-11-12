@@ -1,159 +1,42 @@
-<?xml version="1.0" encoding="UTF-8" ?>   
-    <!DOCTYPE mapper   
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="me.liuhui.mall.repository.dao.SessionTokenDao">
 
-	<resultMap id="BaseResultMap" type="me.liuhui.mall.repository.model.SessionToken">
-        	    <id column="id"  property="id" />
-	       		<result property="sessionToken" column="session_token"/>
-	       		<result property="userId" column="user_id"/>
-	       		<result property="remoteAddress" column="remote_address"/>
-	       		<result property="createTime" column="create_time"/>
-	</resultMap>
 
-<sql id="BaseColumnList">
-id,session_token,user_id,remote_address,create_time
-		</sql>
+    <sql id="BaseColumnList">
+        id,session_token,user_id,remote_address,create_time,status,update_time
+    </sql>
 
 
-	<!--<insert id="insert" useGeneratedKeys="true" keyProperty="id">
-	        insert into
-	        	u_session_token 
-	        <trim prefix="(" suffix=")" suffixOverrides="," >
-	     				<if test="sessionToken != null">
-				       	 session_token ,
-				      </if>
-	     				<if test="userId != null">
-				       	 user_id ,
-				      </if>
-	     				<if test="remoteAddress != null">
-				       	 remote_address ,
-				      </if>
-	     				<if test="createTime != null">
-				       	 create_time ,
-				      </if>
-	        </trim>
-    		<trim prefix="values (" suffix=")" suffixOverrides="," >
-		     				<if test="sessionToken != null">
-					       	 #{sessionToken} ,
-					      </if>
-		     				<if test="userId != null">
-					       	 #{userId} ,
-					      </if>
-		     				<if test="remoteAddress != null">
-					       	 #{remoteAddress} ,
-					      </if>
-		     				<if test="createTime != null">
-					       	 #{createTime} ,
-					      </if>
-	       </trim>
-	</insert>
-	
-	
-	
+    <select id="selectBySessionToken" resultType="me.liuhui.mall.repository.model.SessionToken"
+            parameterType="String">
+        select
+        <include refid="BaseColumnList"/>
+        from
+        u_session_token
+        where session_token = #{sessionToken}
+    </select>
 
-     <select id="selectById" resultMap="BaseResultMap" parameterType="long">
-			select
-				 <include refid="BaseColumnList" />
-		    from
-		    	u_session_token 
-		     where 
-				u_session_token.id = #{id}
-	</select>
-    
-    
-    <update id="update"   >
-   		 update u_session_token
-    <set>
-    		<if test="sessionToken != null">
-		        session_token = #{sessionToken},
-		      </if><if test="userId != null">
-		        user_id = #{userId},
-		      </if><if test="remoteAddress != null">
-		        remote_address = #{remoteAddress},
-		      </if><if test="createTime != null">
-		        create_time = #{createTime},
-		      </if>
-    </set>
-    where id = #{id}
-   </update>
-    
-    
-    <sql id="listWhere">
-				       <if test="id != null">
-							and u_session_token.id = #{id}
-						</if>
-	       		 	 <if test="sessionToken != null and sessionToken != '' ">
-							and u_session_token.session_token = #{sessionToken}
-						</if>
-				       <if test="userId != null">
-							and u_session_token.user_id = #{userId}
-						</if>
-	       		 	 <if test="remoteAddress != null and remoteAddress != '' ">
-							and u_session_token.remote_address = #{remoteAddress}
-						</if>
-	       <if test="minCreateTime != null">
-    			<![CDATA[
+    <select id="countToken" resultType="me.liuhui.mall.repository.model.dao.DateCount">
+        select login_date date, count(1) num from u_session_token
+        <where>
+            <if test="minCreateTime != null">
+                <![CDATA[
 					and u_session_token.create_time >= #{minCreateTime}
 	    		]]>
-		   </if>
-	       <if test="maxCreateTime != null">
-	    		<![CDATA[
+            </if>
+            <if test="maxCreateTime != null">
+                <![CDATA[
 					and u_session_token.create_time <= #{maxCreateTime}
 		    	]]>
-		   </if>
-   </sql>
-    
-    <select id="count" resultType="long">
-   		select 
-   			count(*)
-   		from
-   			u_session_token
-   		<where>
-   			<include refid="listWhere"/>
-   		</where>
-   </select>
-	
-
-    <select id="selectList" resultMap="BaseResultMap" >
-   		select 
-   			 <include refid="BaseColumnList"/>
-   		from
-   			u_session_token
-   		<where>
-   			<include refid="listWhere"/>
-   		</where>
-   		<if test="orderBy != null ">
-   			order by ${orderBy}
-   			<if test="sort != null ">
-   				${ sort}
-   			</if>
-   		</if>
-   		<if test="beginIndex != null and resultSize != null">
-			limit #{beginIndex} , #{resultSize}
-		</if>
-   </select>
-    
-   
-	<delete id="deleteById" parameterType="long" >
-	    delete from u_session_token
-	    where id = #{id}
-  </delete>
-  -->
-   
-    <select id="selectBySessionToken" resultMap="BaseResultMap" parameterType="String">
-	   select 
-   			 <include refid="BaseColumnList"/>
-   		from
-	        u_session_token 
-	     where session_token = #{sessionToken}
+            </if>
+        </where>
+        group by login_date
     </select>
-   
-   
-   
-   
-	
+
+
 </mapper>
 

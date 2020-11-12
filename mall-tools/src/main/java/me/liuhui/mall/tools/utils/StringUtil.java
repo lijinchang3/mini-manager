@@ -116,6 +116,7 @@ public class StringUtil {
 //        System.out.println(s);
 //        System.out.println(s.getBytes("GB18030").length);
 
-        System.out.println(insert("abcdefg","ef","|"));
+//        System.out.println(insert("abcdefg","ef","|"));
+        System.out.println(findByRegex("36.5KiG","([0-9,.]*)"));
     }
 }

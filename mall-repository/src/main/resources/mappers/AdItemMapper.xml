@@ -24,6 +24,7 @@
 	<delete id="deleteBySpaceId">
 		delete from a_ad_item where ad_space_id = #{spaceId}
 	</delete>
+
 	<!--<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 	        insert into
 	        	a_ad_item 

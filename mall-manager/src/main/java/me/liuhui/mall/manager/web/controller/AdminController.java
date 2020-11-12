@@ -42,6 +42,12 @@ public class AdminController {
         return adminService.init();
     }
 
+    @GetMapping("/welcome")
+    public ResultVO<WelcomeVO> welcome() {
+        return adminService.welcome();
+    }
+
+
     @GetMapping("/info")
     public ResultVO<AdminVO> myInfo() {
         return adminService.myInfo();

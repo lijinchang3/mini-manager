@@ -1,7 +1,7 @@
 package me.liuhui.mall.repository.model.enums;
 
-import lombok.Getter;
 import me.liuhui.mall.tools.utils.EnumUtil;
+import lombok.Getter;
 
 @Getter
 public enum AdSpaceType {

@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     @Resource
     private SessionTokenDao sessionTokenDao;
 @Resource
-    private RedisTemplate<String, SessionToken> redisTemplate;
+    private RedisTemplate<String,SessionToken> redisTemplate;
     @Override
     public ResultVO<ListUserVO> list(ListUserDTO dto) {
         if (StringUtils.isBlank(dto.getOrderBy())) {

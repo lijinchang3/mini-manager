@@ -30,6 +30,10 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.im4java</groupId>
+            <artifactId>im4java</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

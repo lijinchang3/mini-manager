@@ -9,13 +9,8 @@ import me.liuhui.mall.manager.service.dto.admin.*;
 import me.liuhui.mall.manager.service.mapstruct.AdminConverter;
 import me.liuhui.mall.manager.service.mapstruct.AdminLoginRecordConverter;
 import me.liuhui.mall.manager.service.vo.admin.*;
-import me.liuhui.mall.repository.dao.AdminDao;
-import me.liuhui.mall.repository.dao.AdminLoginRecordDao;
-import me.liuhui.mall.repository.dao.AdminRoleDao;
-import me.liuhui.mall.repository.model.Admin;
-import me.liuhui.mall.repository.model.AdminLoginRecord;
-import me.liuhui.mall.repository.model.AdminRole;
-import me.liuhui.mall.repository.model.Permission;
+import me.liuhui.mall.repository.dao.*;
+import me.liuhui.mall.repository.model.*;
 import me.liuhui.mall.repository.model.enums.AdminStatus;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -50,6 +47,14 @@ public class AdminServiceImpl implements AdminService {
     private AdminRoleDao adminRoleDao;
     @Resource
     private PermissionService permissionService;
+    @Resource
+    private UserDao userDao;
+@Resource
+    private ProductDao productDao;
+    @Resource
+    private OrderDao orderDao;
+    @Resource
+    private SessionTokenDao sessionTokenDao;
 
 
     @Override
@@ -119,6 +124,19 @@ public class AdminServiceImpl implements AdminService {
         ListAdminLoginRecordVO vo = new ListAdminLoginRecordVO();
         vo.setTotal(count);
         vo.setList(adminLoginRecordConverter.toVo(adminLoginRecords));
+        return ResultVO.buildSuccessResult(vo);
+    }
+
+    @Override
+    public ResultVO<WelcomeVO> welcome() {
+        WelcomeVO vo = new WelcomeVO();
+        vo.setUserNum(userDao.count(null));
+        vo.setProductNum(productDao.count(null));
+        vo.setOrderNum(orderDao.count(null));
+        vo.setOrderAmount(orderDao.sumAmount(null));
+        Date minDate = Date.from(LocalDateTime.now().minusMonths(1).atZone(ZoneId.systemDefault()).toInstant());
+        vo.setLoginCount(sessionTokenDao.countToken(minDate,null));
+        vo.setOrderCount(orderDao.countOrder(minDate,null));
         return ResultVO.buildSuccessResult(vo);
     }
 

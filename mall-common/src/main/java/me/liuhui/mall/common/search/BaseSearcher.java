@@ -1,8 +1,8 @@
 package me.liuhui.mall.common.search;
 
-import lombok.extern.slf4j.Slf4j;
 import me.liuhui.mall.common.search.query.SearchQuery;
 import me.liuhui.mall.common.search.query.SearchResult;
+import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilders;

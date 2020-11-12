@@ -2,7 +2,6 @@
 package me.liuhui.mall.manager.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import lombok.extern.slf4j.Slf4j;
 import me.liuhui.mall.common.base.vo.ResultVO;
 import me.liuhui.mall.common.service.FileService;
 import me.liuhui.mall.common.service.dto.TempToAdDTO;
@@ -24,6 +23,7 @@ import me.liuhui.mall.repository.model.json.LinkAdItem;
 import me.liuhui.mall.repository.model.json.PicAdItem;
 import me.liuhui.mall.repository.model.json.PicTextAdItem;
 import me.liuhui.mall.repository.model.json.ProductAdItem;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

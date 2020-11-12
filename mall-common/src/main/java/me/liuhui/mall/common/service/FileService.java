@@ -1,6 +1,5 @@
 package me.liuhui.mall.common.service;
 
-
 import me.liuhui.mall.common.base.vo.ResultVO;
 import me.liuhui.mall.common.service.dto.SaveAdHtmlDTO;
 import me.liuhui.mall.common.service.dto.TempToAdDTO;
