@@ -1,8 +1,8 @@
-# mini-mall
+# mini-manager
 
 项目简介
 
-mini-mall项目是一套开源电商系统，基于SpringBoot2.0的后台权限管理系统界面简洁美观敏捷开发系统架构。包括前台商城系统及后台管理系统，使用SpringBoot+MyBatis+redis+layuimini实现，
+mini-manager项目是一套管理后台系统，基于SpringBoot2.0的后台权限管理系统界面简洁美观敏捷开发系统架构。使用SpringBoot+MyBatis+redis+layuimini实现，
 封装elasticsearch做产品搜索。
 
 
@@ -23,8 +23,8 @@ mini-mall项目是一套开源电商系统，基于SpringBoot2.0的后台权限�
 
 ## 快速体验
 
-* 将mini-mall项目源码通过maven形式导入IntelliJ IDEA；
-* 导入document/sql/mini-mall.sql数据文件,注意：数据库使用utf-8编码；
+* 将mini-manager项目源码通过maven形式导入IntelliJ IDEA；
+* 导入document/sql/mini-manager.sql数据文件,注意：数据库使用utf-8编码；
 * 修改application.yml文件中的数据库设置参数；
 * 访问后台地址：http://localhost:8888/
 * 管理员账号，用户名：admin 密码：123456
