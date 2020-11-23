@@ -5,8 +5,15 @@
 mini-manager项目是一套管理后台系统，基于SpringBoot2.0的后台权限管理系统界面简洁美观敏捷开发系统架构。使用SpringBoot+MyBatis+redis+layuimini实现，
 封装elasticsearch做产品搜索。
 
+##管理后台实例
 
-正在持续开发中.....
+![avatar](document/images/登录.png)
+![avatar](document/images/欢迎页.png)
+![avatar](document/images/管理员.png)
+![avatar](document/images/权限.png)
+![avatar](document/images/角色.png)
+![avatar](document/images/商品.png)
+![avatar](document/images/用户.png)
 
 **如果你喜欢这个开源项目还请点个star**
 
