@@ -61,6 +61,7 @@ mini-manager项目是一套管理后台系统，基于SpringBoot2.0的后台权�
 
 
 
+[![Stargazers repo roster for @USERNAME/REPO_NAME](https://reporoster.com/stars/liuhui-wh/mini-manager)](https://github.com/liuhui-wh/mini-manager/stargazers)
 
 
 
