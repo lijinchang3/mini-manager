@@ -34,7 +34,7 @@ layui.define('layer', function (exports) {
                     , '邮箱格式不正确'
                 ]
                 , url: [
-                    /(^#)|(^http(s*):\/\/[^\s]+\.[^\s]+)/
+                    /^$|(^#)|(^http(s*):\/\/[^\s]+\.[^\s]+)/
                     , '链接格式不正确'
                 ]
                 , number: function (value) {
@@ -633,6 +633,9 @@ layui.define('layer', function (exports) {
                 , vers = othis.attr('lay-verify').split('|')
                 , verType = othis.attr('lay-verType') //提示方式
                 , value = othis.val();
+            if(othis.is('[type=radio]')){
+                value = $('[name='+othis.attr('name')+']:checked').val();
+            }
 
             othis.removeClass(DANGER); //移除警示样式
 

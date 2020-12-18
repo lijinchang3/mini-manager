@@ -78,4 +78,9 @@ layui.use(['jquery', 'nprogress'], function () {
         return format;
     };
 
+
+    window.priceFormat = function (value) {
+        return '<span>￥' + Number(value).toFixed(2) + '</span>';
+    }
+
 });

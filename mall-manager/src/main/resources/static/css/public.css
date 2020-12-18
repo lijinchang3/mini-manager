@@ -84,7 +84,7 @@ body {
 
 }
 
-#productTableId + .layui-table-view .layui-table-body tbody > tr > td > .layui-table-cell {
+#productTableId,#orderTableId + .layui-table-view .layui-table-body tbody > tr > td > .layui-table-cell {
     height: 60px;
     line-height: 60px;
 }
