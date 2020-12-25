@@ -111,6 +111,10 @@ public class FileServiceImpl implements FileService {
     public ResultVO<FileVO> saveAdHtml(SaveAdHtmlDTO dto) {
         String path = filePathProperties.getAdPath() + "/html/" + dto.getNo() + ".html";
         File targetFile = new File(filePathProperties.getBasePath() + path);
+        if (!targetFile.getParentFile().exists()) {
+            boolean mkdirs = targetFile.getParentFile().mkdirs();
+            log.info("创建父目录{}{}", targetFile.getAbsolutePath(), mkdirs ? "成功" : "失败");
+        }
         try(final FileChannel fileChannel = new FileOutputStream(targetFile).getChannel()) {
             fileChannel.write(ByteBuffer.wrap(dto.getHtml().getBytes(StandardCharsets.UTF_8)));
         } catch (IOException e) {
