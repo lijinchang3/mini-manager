@@ -1,5 +1,6 @@
 package me.liuhui.mall.common.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import me.liuhui.mall.common.base.vo.ResultVO;
 import me.liuhui.mall.common.config.properties.FilePathProperties;
 import me.liuhui.mall.common.service.FileService;
@@ -8,13 +9,15 @@ import me.liuhui.mall.common.service.dto.TempToAdDTO;
 import me.liuhui.mall.common.service.dto.TempToProductDTO;
 import me.liuhui.mall.common.service.dto.UploadFileDTO;
 import me.liuhui.mall.common.service.vo.FileVO;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
@@ -38,14 +41,22 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public ResultVO<FileVO> uploadTemp(UploadFileDTO dto) throws IOException {
+    public ResultVO<FileVO> uploadTemp(UploadFileDTO dto)  {
         String path = filePathProperties.getTempPath() + "/" + DateFormatUtils.format(new Date(), "yyyy-MM-dd") + "/" + System.currentTimeMillis() + "." + FilenameUtils.getExtension(dto.getFilename());
         File targetFile = new File(filePathProperties.getBasePath() + path);
         if (!targetFile.getParentFile().exists()) {
             boolean mkdirs = targetFile.getParentFile().mkdirs();
             log.info("创建父目录{}{}", targetFile.getAbsolutePath(), mkdirs ? "成功" : "失败");
         }
-        FileUtils.copyInputStreamToFile(dto.getInputStream(), targetFile);
+        try(
+                FileInputStream fileInputStream = (FileInputStream) dto.getInputStream();
+                FileOutputStream fileOutputStream = new FileOutputStream(targetFile)
+        ) {
+            fileInputStream.getChannel().transferTo(0, fileInputStream.available(),fileOutputStream.getChannel());
+        } catch (IOException e) {
+            log.error("文件拷贝异常！",e);
+            return ResultVO.buildFailResult("文件拷贝异常！");
+        }
         FileVO vo = new FileVO();
         vo.setPath(path);
         vo.setUrl(filePathProperties.getDomain() + path);
@@ -53,7 +64,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public ResultVO<FileVO> tempToAd(TempToAdDTO dto) {
+    public ResultVO<FileVO> tempToAd(TempToAdDTO dto)  {
         File tempFile = new File(filePathProperties.getBasePath() + dto.getTempFilePath());
         if (!tempFile.exists()) {
             return ResultVO.buildFailResult("未找到源文件");
@@ -65,7 +76,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public ResultVO<FileVO> tempToProduct(TempToProductDTO  dto) {
+    public ResultVO<FileVO> tempToProduct(TempToProductDTO dto)  {
         File tempFile = new File(filePathProperties.getBasePath() + dto.getTempFilePath());
         if (!tempFile.exists()) {
             return ResultVO.buildFailResult("未找到源文件");
@@ -75,26 +86,36 @@ public class FileServiceImpl implements FileService {
         return storeFile(path,tempFile);
     }
 
-    private ResultVO<FileVO> storeFile(String path,File tempFile) {
-        File targetFile = new File(filePathProperties.getBasePath() + path);
-        try {
-            FileUtils.copyFile(tempFile, targetFile);
+    private ResultVO<FileVO> storeFile(String targetPath,File srcFile)  {
+        File targetFile = new File(filePathProperties.getBasePath() + targetPath);
+        if (!targetFile.getParentFile().exists()) {
+            boolean mkdirs = targetFile.getParentFile().mkdirs();
+            log.info("创建父目录{}{}", targetFile.getAbsolutePath(), mkdirs ? "成功" : "失败");
+        }
+        try(
+                final FileInputStream fileInputStream = new FileInputStream(srcFile);
+                final FileOutputStream fileOutputStream = new FileOutputStream(targetFile)
+        ){
+            fileInputStream.getChannel().transferTo(0, fileInputStream.available(),fileOutputStream.getChannel());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            log.error("文件拷贝异常！",e);
+            return ResultVO.buildFailResult("文件拷贝异常！");
         }
         FileVO vo = new FileVO();
-        vo.setPath(path);
-        vo.setUrl(filePathProperties.getDomain() + path);
+        vo.setPath(targetPath);
+        vo.setUrl(filePathProperties.getDomain() + targetPath);
         return ResultVO.buildSuccessResult(vo);
     }
 
     @Override
     public ResultVO<FileVO> saveAdHtml(SaveAdHtmlDTO dto) {
         String path = filePathProperties.getAdPath() + "/html/" + dto.getNo() + ".html";
-        try {
-            FileUtils.writeStringToFile(new File(filePathProperties.getBasePath() + path), dto.getHtml(), StandardCharsets.UTF_8);
+        File targetFile = new File(filePathProperties.getBasePath() + path);
+        try(final FileChannel fileChannel = new FileOutputStream(targetFile).getChannel()) {
+            fileChannel.write(ByteBuffer.wrap(dto.getHtml().getBytes(StandardCharsets.UTF_8)));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            log.error("写文件异常！",e);
+            return ResultVO.buildFailResult("写文件异常");
         }
         FileVO vo = new FileVO();
         vo.setPath(path);
