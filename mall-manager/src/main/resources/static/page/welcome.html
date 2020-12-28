@@ -215,7 +215,7 @@
                         optionRecords.series[0].data.push(0);
                     }
                     if(res.data.orderCount[j] && res.data.orderCount[j].date === d ){
-                        optionRecords.series[1].data.push(res.data.loginCount[j++].num);
+                        optionRecords.series[1].data.push(res.data.orderCount[j++].num);
                     }else{
                         optionRecords.series[1].data.push(0);
                     }
